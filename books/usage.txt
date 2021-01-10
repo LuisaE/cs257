@@ -1,3 +1,13 @@
-#Clair Williams and Luisa Escosteguy
+#Claire Williams and Luisa Escosteguy
 
-python3 books.py some-operation [options]
+#Usage options, list the three possibilities bellow
+python3 books.py --help
+
+#List of books filtered by name 
+python3 books.py --book-search [name]
+
+#List of books filtered by author
+python3 books.py --author-search [name]
+
+#List of books published between two years
+python3 books.py --publish [year1] [year2]

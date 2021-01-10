@@ -1,1 +1,1 @@
-#Clair Williams and Luisa Escosteguy
+#Claire Williams and Luisa Escosteguy
