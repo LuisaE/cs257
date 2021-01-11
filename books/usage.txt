@@ -6,9 +6,9 @@ usage:
     python3 books.py [--publish year year]
     python3 books.py [--help]
 
-These are commands to filter books.csv, a file full of data about books and authors:
+Process books.csv using a keyword from the title, an author, or a range of publication:
 
---book-search S             Print a list of books whose titles contain the string S
---author-search S           Print a list of authors whose names contain the string S
---publish year year         Print a list of books published between the two years
---help                      Print this usage message
+--book-search, -bs S             print a list of books whose titles contain the string S
+--author-search, -as S           print a list of authors whose names contain the string S
+--publish, -p year year          print a list of books published between the two years
+--help, -h                       show this help message and exit
