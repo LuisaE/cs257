@@ -1,5 +1,5 @@
 #Claire Williams and Luisa Escosteguy
-#test comment
+
 import argparse
 import csv
 
@@ -53,9 +53,13 @@ def print_books(books):
 	if not books:
 		print("We are sorry. We cannot find any results that match your search criteria.")
 		exit()
-	
-	for book in books:
-		print('\t'.join(book))
+
+	dash = '-' * 80
+	print(dash)
+	print('{:<44s}{:>6s}{:>30s}'.format('Book', 'Year', 'Author'))
+	print(dash)
+	for i in range(len(books)):
+		print('{:<44s}{:^6s}{:>30s}'.format(books[i][0],books[i][1],books[i][2]))
 
 def main():
 	arguments = get_parsed_arguments()
