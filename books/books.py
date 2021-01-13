@@ -74,8 +74,12 @@ def main():
 			if arguments.publication[0].isnumeric() and arguments.publication[1].isnumeric():
 				books = publication(arguments.publication, books)
 			else:
-				print("Please, type numbers only")
+				print("Please type numbers only")
 				exit()
+	if not (arguments.book or arguments.author or arguments.publication):
+		print("Please add a flag to search for books")
+		print("For additional information, enter python3 books.py --help")
+		exit()
 	
 	print_books(books)
 
