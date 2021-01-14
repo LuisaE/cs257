@@ -59,7 +59,8 @@ def print_books(books):
 	print('{:<44s}{:>6s}{:>30s}'.format('Book', 'Year', 'Author'))
 	print(dash)
 	for i in range(len(books)):
-		print('{:<44s}{:^6s}{:>30s}'.format(books[i][0],books[i][1],books[i][2]))
+		book_name, year, author = books[i]
+		print('{:<44s}{:^6s}{:>30s}'.format(book_name, year, author))
 
 def main():
 	arguments = get_parsed_arguments()
@@ -76,6 +77,7 @@ def main():
 			else:
 				print("Please type numbers only")
 				exit()
+				
 	if not (arguments.book or arguments.author or arguments.publication):
 		print("Please add a flag to search for books")
 		print("For additional information, enter python3 books.py --help")
