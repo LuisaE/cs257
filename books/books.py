@@ -3,6 +3,8 @@
 import argparse
 import csv
 
+books = []
+
 def get_parsed_arguments():
 	parser = argparse.ArgumentParser(description='Process books.csv using a keyword from the title, an author, or a range of publication')
 	parser.add_argument('--book', '-b', nargs=1, metavar='S', help='print a list of books whose titles contain the string S')
@@ -11,7 +13,8 @@ def get_parsed_arguments():
 	parsed_arguments = parser.parse_args()
 	return parsed_arguments
 
-def book(arg, books):
+def search_books_by_title(arg):
+	global books
 	new_books = []
 	S = arg[0].lower()
 
@@ -19,9 +22,10 @@ def book(arg, books):
 		if book[0].lower().count(S) > 0:
 			new_books.append(book)
 	
-	return new_books
+	books = new_books
 
-def author(arg, books):
+def search_books_by_author(arg):
+	global books
 	new_books = []
 	S = arg[0].lower()
 
@@ -29,9 +33,10 @@ def author(arg, books):
 		if book[2].lower().count(S) > 0:
 			new_books.append(book)
 
-	return new_books
+	books = new_books
 
-def publication(args, books):
+def search_books_by_publication(args):
+	global books
 	new_books = []
 	year_start, year_end = args
 	year_start = int(year_start)
@@ -47,9 +52,10 @@ def publication(args, books):
 		if year_of_publication >= year_start and year_of_publication <= year_end:
 			new_books.append(book)
 
-	return new_books
+	books = new_books
 
-def print_books(books):
+def print_books():
+	global books
 	if not books:
 		print("We are sorry. We cannot find any results that match your search criteria.")
 		exit()
@@ -63,17 +69,18 @@ def print_books(books):
 		print('{:<44s}{:^6s}{:>30s}'.format(book_name, year, author))
 
 def main():
+	global books
 	arguments = get_parsed_arguments()
 	books = csv.reader(open('books.csv', "r"), delimiter=",")
 
 	if arguments:
 		if arguments.book:
-			books = book(arguments.book, books)
+			search_books_by_title(arguments.book)
 		if arguments.author:
-			books = author(arguments.author, books)
+			search_books_by_author(arguments.author)
 		if arguments.publication:
 			if arguments.publication[0].isnumeric() and arguments.publication[1].isnumeric():
-				books = publication(arguments.publication, books)
+				search_books_by_publication(arguments.publication)
 			else:
 				print("Please type numbers only")
 				exit()
@@ -83,7 +90,7 @@ def main():
 		print("For additional information, enter python3 books.py --help")
 		exit()
 	
-	print_books(books)
+	print_books()
 
 if __name__ == '__main__':
 	main()
