@@ -23,7 +23,7 @@ def get_parsed_arguments():
 
 def athletes_by_noc(noc, cursor):
     """
-    Prints the names of all the athletes from a specified NOC (either by region or abbreviation)
+    Prints the names of all the athletes from a specified NOC (or by region)
     """
     query = '''SELECT DISTINCT athlete.athlete_name 
                 FROM athlete, committee, athlete_competition
@@ -51,12 +51,12 @@ def gold_medals_by_noc(cursor):
     Prints all NOCs and the number of gold medals they have won, 
     in decreasing order of the number of gold medals
     """ 
-    query = '''SELECT committee.region, COUNT(athlete_competition_event.medal)
+    query = '''SELECT committee.abbreviation, COUNT(athlete_competition_event.medal)
                 FROM committee, athlete_competition, athlete_competition_event
                 WHERE committee.committee_id = athlete_competition.committee_id 
                 AND athlete_competition.athlete_competition_id = athlete_competition_event.athlete_competition_id
                 AND athlete_competition_event.medal = 'Gold'
-                GROUP BY  committee.region
+                GROUP BY  committee.abbreviation
                 ORDER BY COUNT(athlete_competition_event.medal) DESC;'''
     try:
         cursor.execute(query)
