@@ -23,16 +23,16 @@ def get_parsed_arguments():
 
 def athletes_by_noc(noc, cursor):
     """
-    Prints the names of all the athletes from a specified NOC
+    Prints the names of all the athletes from a specified NOC (either by region or abbreviation)
     """
     query = '''SELECT DISTINCT athlete.athlete_name 
                 FROM athlete, committee, athlete_competition
                 WHERE athlete.athlete_id = athlete_competition.athlete_id
                 AND athlete_competition.committee_id = committee.committee_id
-                AND committee.region = %s
+                AND (UPPER(committee.region) = %s OR UPPER(committee.abbreviation) = %s)
                 ORDER BY athlete.athlete_name;'''
     try:
-        cursor.execute(query, (noc[0],))
+        cursor.execute(query, (noc[0].upper(), noc[0].upper(),))
     except Exception as e:
         print(e)
         exit()
@@ -75,9 +75,9 @@ def events_by_sport(sport, cursor):
     """ 
     query = '''SELECT event_name 
                 FROM event 
-                WHERE sport = %s'''
+                WHERE UPPER(sport) = %s'''
     try:
-        cursor.execute(query, (sport[0],))
+        cursor.execute(query, (sport[0].upper(),))
     except Exception as e:
         print(e)
         exit()
