@@ -1,7 +1,10 @@
 # Luisa Escosteguy
+# Jan 25, 2021
+# A database-driven command-line application, using the olympics database
 
 import argparse
 import psycopg2
+import sys
 
 from config import password
 from config import database
@@ -32,6 +35,10 @@ def athletes_by_noc(noc, cursor):
         cursor.execute(query, (noc[0],))
     except Exception as e:
         print(e)
+        exit()
+
+    if cursor.rowcount == 0:
+        print("We are sorry. We cannot find any results that match your search criteria.", file=sys.stderr)
         exit()
 
     print('===== Athletes from noc {0} ====='.format(noc[0]))
@@ -75,6 +82,10 @@ def events_by_sport(sport, cursor):
         print(e)
         exit()
 
+    if cursor.rowcount == 0:
+        print("We are sorry. We cannot find any results that match your search criteria.", file=sys.stderr)
+        exit()
+
     print('===== Events from the sport {0} ====='.format(sport[0]))
     for row in cursor:
         print(row[0])
@@ -99,9 +110,9 @@ def main():
     if argument:
         if argument.athlete:
             athletes_by_noc(argument.athlete, cursor)
-        elif argument.medal_noc:
+        if argument.medal_noc:
             gold_medals_by_noc(cursor)
-        elif argument.event:
+        if argument.event:
             events_by_sport(argument.event, cursor)
             
     connection.close()
