@@ -27,8 +27,8 @@ def get_games():
 
     games_dictionary = []
     for row in cursor:
-        id, year, season, city = row
-        games_dictionary.append({'id': id, 'year': year, 'season': season, 'city': city})
+        id, year, city, season = row
+        games_dictionary.append({'id': id, 'year': year, 'city': city, 'season': season})
 
     return json.dumps(games_dictionary)
 
