@@ -1,0 +1,26 @@
+/* Luisa Escosteguy */
+
+#container {
+  width: 100%;
+  height: 100%;
+}
+
+#top-panel {
+  width: 100%;
+  height: 20%;
+  background-color: #f9673c;
+}
+
+#left-panel {
+  float: left;
+  width: 20%;
+  height: 80%;
+  background-color: #65aa07;
+}
+
+#right-panel {
+  float: right;
+  width: 80%;
+  height: 80%;
+  background-color: #3ccef9;
+}
