@@ -1,8 +1,14 @@
 # Claire Williams and Luisa Escosteguy
 
-Dataset:
+DATASET:
     A dataset of
 
     Available at: 
 
-Stories:
+STORIES:
+
+    STORY:
+    IMPLEMENTATION:
+
+    STORY:
+    IMPLEMENTATION:
