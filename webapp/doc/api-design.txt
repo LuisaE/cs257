@@ -1,0 +1,27 @@
+# Claire Williams and Luisa Escosteguy
+
+REQUEST: /games
+RESPONSE: a JSON list of dictionaries, each of which represents one
+game, sorted by global sales. Each game dictionary will have the
+following fields.
+
+   game -- (string) the title of the game
+   ...
+
+REQUEST: /platform
+RESPONSE: an alphabetized JSON list of strings, each of which is an platform.
+
+REQUEST: /publisher
+RESPONSE: an alphabetized JSON list of strings, each of which is an publisher.
+
+REQUEST: /genre
+RESPONSE: an alphabetized JSON list of strings, each of which is an genre.
+
+REQUEST: /platform?name={text} or /platform/{text} [CHOOSE ONE]
+RESPONSE: 
+
+REQUEST: /publisher?name={text}
+RESPONSE: 
+
+REQUEST: /genre?name={text}
+RESPONSE: 
