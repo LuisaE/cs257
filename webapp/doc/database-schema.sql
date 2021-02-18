@@ -19,3 +19,22 @@ CREATE TABLE games_platforms(
     user_score decimal,
     critic_score decimal
 );
+
+CREATE TABLE games(
+    id SERIAL,
+    name text,
+    year integer,
+    rating text,
+    genre_id integer,
+    publisher_id integer
+);
+
+CREATE TABLE publishers(
+    id SERIAL,
+    publisher text
+);
+
+CREATE TABLE genres(
+    id SERIAL,
+    genre text
+);
