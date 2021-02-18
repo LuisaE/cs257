@@ -2,6 +2,7 @@
 
 import unittest
 import games_api
+import json
 
 class APITester(unittest.TestCase):
     def setUp(self):
@@ -13,20 +14,38 @@ class APITester(unittest.TestCase):
     def test_games_endpoint(self):
         url = '/games'
         self.assertIsNotNone(self.games_api.get_games(url))
-        #add cases
 
-    def test_platform_endpoint(self):
-        url = '/platform'
+    def test_platforms_endpoint(self):
+        url = '/platforms'
         self.assertIsNotNone(self.games_api.get_platform(url))
 
-    def test_publisher_endpoint(self):
-        url = '/publisher'
+    def test_publishers_endpoint(self):
+        url = '/publishers'
         self.assertIsNotNone(self.games_api.get_publisher(url))
 
-    def test_genre_endpoint(self):
-        url = '/genre'
+    def test_genres_endpoint(self):
+        url = '/genres'
         self.assertIsNotNone(self.games_api.get_genre(url))
 
+    def test_categories_endpoint(self):
+        url = '/categories'
+        self.assertIsNotNone(self.games_api.get_categories(url))
+        self.asertEqual(self.games_api.get_categories(url).keys(), ['platforms', 'genres', 'publishers'])
+        
+        url_wrong = '/categories?random' 
+        self.asertEqual(self.games_api.get_categories(url).keys(), ['platforms', 'genres', 'publishers'])
+    
+    def test_publisher_endpoint(self):
+        url = '/publisher?name=Nintendo'
+        self.assertIsNotNone(self.games_api.get_publishers_by_name(url))
+        self.assertEqual(json.load(self.games_api.get_publishers_by_name(url))[0].keys(),
+                ['name', 'global_sales', 'publisher', 'platform', 'genre', 'year', 'na', 'eu', 'jp', 'user_score', 'critic_score'])
+        
+        url_empty = '/publisher?name='
+        self.assertEqual(self.games_api.get_publishers_by_name(url_empty), '[]')
+        
+        url_publisher_not_in_set = '/publisher?name=ThisDoesNotMakeSense'
+        self.assertEqual(self.games_api.get_publishers_by_name(url_publisher_not_in_set), '[]')
 
 if __name__ == '__main__':
     unittest.main()
