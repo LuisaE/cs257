@@ -14,7 +14,7 @@ def home():
 
 @app.route('/<path:path>')
 def shared_header_catchall(path):
-    return flask.render_template(path)
+    return flask.render_template(path+".html")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Webapp project')
