@@ -133,3 +133,4 @@ dmypy.json
 
 database/config.py
 olympics-api/config.py
+webapp/config.py

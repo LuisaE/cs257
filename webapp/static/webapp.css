@@ -1,0 +1,38 @@
+/* Claire Williams and Luisa Escosteguy */
+
+body {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue";
+  background: #d2f2ff;
+}
+
+header.masthead {
+  position: relative;
+  background-color: #c7caca;
+  background-size: cover;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+header.masthead .overlay {
+  position: absolute;
+  background-color: #c7caca;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+}
+
+header.masthead h1 {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+header.masthead h2 {
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+.container-fluid {
+  margin-top: 4rem;
+}
