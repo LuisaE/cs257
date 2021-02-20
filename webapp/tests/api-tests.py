@@ -66,5 +66,17 @@ class APITester(unittest.TestCase):
         url_publisher_not_in_set = '/platform?name=ThisDoesNotMakeSense'
         self.assertEqual(self.games_api.get_platform_by_name(url_publisher_not_in_set), '[]')
 
+    def test_genre_endpoint(self):
+        url = '/genre?name=Action'
+        self.assertIsNotNone(self.games_api.get_genre_by_name(url))
+        self.assertEqual(json.load(self.games_api.get_genre_by_name(url))[0].keys(),
+                ['name', 'global_sales', 'publisher', 'platform', 'genre', 'year', 'na', 'eu', 'jp', 'user_score', 'critic_score'])
+        
+        url_empty = '/genre?name='
+        self.assertEqual(self.games_api.get_genre_by_name(url_empty), '[]')
+        
+        url_genre_not_in_set = '/genre?name=ThisDoesNotMakeSense'
+        self.assertEqual(self.games_api.get_genre_by_name(url_genre_not_in_set), '[]')
+
 if __name__ == '__main__':
     unittest.main()
