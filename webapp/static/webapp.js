@@ -3,15 +3,16 @@
 window.onload = initialize;
 
 function initialize() {
-  var element = document.getElementById("cats_button");
-  if (element) {
-    element.onclick = onCatsButton;
-  }
+  gamesTable = initialize_data_tables();
+  getGames(gamesTable);
+}
 
-  var element = document.getElementById("dogs_button");
-  if (element) {
-    element.onclick = onDogsButton;
-  }
+function initialize_data_tables() {
+  var gamesTable = $("#games").DataTable();
+  $("#platforms").DataTable();
+  $("#publishers").DataTable();
+  $("#genres").DataTable();
+  return gamesTable;
 }
 
 function getAPIBaseURL() {
@@ -25,31 +26,23 @@ function getAPIBaseURL() {
   return baseURL;
 }
 
-function onCatsButton() {
-  var url = getAPIBaseURL() + "/cats/";
+function getGames(gamesTable) {
+  var url = getAPIBaseURL() + "/games/";
 
   fetch(url, { method: "get" })
     .then((response) => response.json())
 
-    .then(function (cats) {
-      var listBody = "";
-      for (var k = 0; k < cats.length; k++) {
-        var cat = cats[k];
-        listBody +=
-          "<li>" +
-          cat["name"] +
-          ", " +
-          cat["birth_year"] +
-          "-" +
-          cat["death_year"] +
-          ", " +
-          cat["description"];
-        +"</li>\n";
-      }
-
-      var animalListElement = document.getElementById("animal_list");
-      if (animalListElement) {
-        animalListElement.innerHTML = listBody;
+    .then(function (games) {
+      for (var k = 0; k < games.length; k++) {
+        var game = games[k];
+        gamesTable.row
+          .add([
+            game["name"],
+            game["birth_year"],
+            game["death_year"],
+            game["description"],
+          ])
+          .draw(false);
       }
     })
 
@@ -57,40 +50,3 @@ function onCatsButton() {
       console.log(error);
     });
 }
-
-function onDogsButton() {
-  var url = getAPIBaseURL() + "/dogs/";
-
-  fetch(url, { method: "get" })
-    .then((response) => response.json())
-
-    .then(function (dogs) {
-      var listBody = "";
-      for (var k = 0; k < dogs.length; k++) {
-        var dog = dogs[k];
-        listBody +=
-          "<li>" +
-          dog["name"] +
-          ", " +
-          dog["birth_year"] +
-          "-" +
-          dog["death_year"] +
-          ", " +
-          dog["description"];
-        +"</li>\n";
-      }
-
-      var animalListElement = document.getElementById("animal_list");
-      if (animalListElement) {
-        animalListElement.innerHTML = listBody;
-      }
-    })
-
-    .catch(function (error) {
-      console.log(error);
-    });
-}
-
-$(document).ready(function () {
-  $("#games").DataTable();
-});
