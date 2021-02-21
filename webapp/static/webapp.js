@@ -3,16 +3,24 @@
 window.onload = initialize;
 
 function initialize() {
-  gamesTable = initialize_data_tables();
+  [
+    gamesTable,
+    platformsTable,
+    publishersTable,
+    genresTable,
+  ] = initialize_data_tables();
   getGames(gamesTable);
+  getPlatforms(platformsTable);
+  getGenres(genresTable);
+  getPublishers(publishersTable);
 }
 
 function initialize_data_tables() {
   var gamesTable = $("#games").DataTable();
-  $("#platforms").DataTable();
-  $("#publishers").DataTable();
-  $("#genres").DataTable();
-  return gamesTable;
+  var platformsTable = $("#platforms").DataTable();
+  var publishersTable = $("#publishers").DataTable();
+  var genresTable = $("#genres").DataTable();
+  return [gamesTable, platformsTable, publishersTable, genresTable];
 }
 
 function getAPIBaseURL() {
@@ -38,11 +46,68 @@ function getGames(gamesTable) {
         gamesTable.row
           .add([
             game["name"],
-            game["birth_year"],
-            game["death_year"],
-            game["description"],
+            // game["sales"],
+            game["publisher"],
+            game["platform"],
+            game["genre"],
+            game["year"],
           ])
           .draw(false);
+      }
+    })
+
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function getPlatforms(platformsTable) {
+  var url = getAPIBaseURL() + "/platforms/";
+
+  fetch(url, { method: "get" })
+    .then((response) => response.json())
+
+    .then(function (platforms) {
+      console.log(platforms.length);
+      for (var k = 0; k < platforms.length; k++) {
+        var platform = platforms[k];
+        platformsTable.row.add([platform]).draw(false);
+      }
+    })
+
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function getGenres(genresTable) {
+  var url = getAPIBaseURL() + "/genres/";
+
+  fetch(url, { method: "get" })
+    .then((response) => response.json())
+
+    .then(function (genres) {
+      for (var k = 0; k < genres.length; k++) {
+        var genre = genres[k];
+        genresTable.row.add([genre]).draw(false);
+      }
+    })
+
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function getPublishers(publishersTable) {
+  var url = getAPIBaseURL() + "/publishers/";
+
+  fetch(url, { method: "get" })
+    .then((response) => response.json())
+
+    .then(function (publishers) {
+      for (var k = 0; k < publishers.length; k++) {
+        var publisher = publishers[k];
+        publishersTable.row.add([publisher]).draw(false);
       }
     })
 
