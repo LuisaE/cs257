@@ -13,6 +13,10 @@ FEATURES CURRENTLY WORKING:
 - List all the publishers
 - List all the genres
 - List all the platforms
+- Search any games field using DataTable search
+- Search publishers using DataTable search
+- Search genres using DataTable search
+- Search platforms using DataTable search
 
 FEATURES NOT YET WORKING:
 - [something]

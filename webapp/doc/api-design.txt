@@ -12,14 +12,19 @@ following fields.
    genre -- (string) genre of the game
    year -- (integer) year of publication
 
+EXAMPLE(S):
+
 REQUEST: /platforms
 RESPONSE: an alphabetized JSON list of strings, each of which is an platform.
+EXAMPLE(S):
 
 REQUEST: /publishers
 RESPONSE: an alphabetized JSON list of strings, each of which is an publisher.
+EXAMPLE(S):
 
 REQUEST: /genres
 RESPONSE: an alphabetized JSON list of strings, each of which is an genre.
+EXAMPLE(S):
 
 REQUEST: /categories
 RESPONSE: returns a JSON dictionary with the categorical entries and their values for the dataset. Example:
@@ -28,6 +33,7 @@ RESPONSE: returns a JSON dictionary with the categorical entries and their value
    'genres': [] #array of top 5 genres
    'publishers': [] #array of top 5 publishers
 }
+EXAMPLE(S):
 
 #For the insights pages
 
@@ -45,6 +51,7 @@ RESPONSE: a JSON list of dictionaries, each of which represents the games in the
    jp -- (integer) Japan sales of the game
    user_score -- (decimal) user score of the game
    critic_score --(decimal) critic score of the game
+EXAMPLE(S):
 
 REQUEST: /publisher?name={text}
 RESPONSE: a JSON list of dictionaries, each of which represents the games of the specified publisher
@@ -60,6 +67,7 @@ RESPONSE: a JSON list of dictionaries, each of which represents the games of the
    jp -- (integer) Japan sales of the game
    user_score -- (decimal) user score of the game
    critic_score --(decimal) critic score of the game
+EXAMPLE(S):
 
 REQUEST: /genre?name={text}
 RESPONSE: a JSON list of dictionaries, each of which represents games of the specified genre
@@ -75,3 +83,4 @@ RESPONSE: a JSON list of dictionaries, each of which represents games of the spe
    jp -- (integer) Japan sales of the game
    user_score -- (decimal) user score of the game
    critic_score --(decimal) critic score of the game
+EXAMPLE(S):
