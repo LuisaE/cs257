@@ -19,7 +19,7 @@ def get_games():
                 AND games.genre_id = genres.id
                 AND games.id = games_platforms.games_id
                 AND games_platforms.platforms_id = platforms.id
-                LIMIT 200;'''
+                LIMIT 300;'''
     try:
         cursor = connect_database()
         cursor.execute(query)
@@ -57,7 +57,7 @@ def get_genres():
     query = '''SELECT DISTINCT genre
                 FROM genres
                 WHERE genre IS NOT NULL
-                ORDER BY genre'''
+                ORDER BY genre;'''
     try:
         cursor = connect_database()
         cursor.execute(query)
@@ -75,7 +75,8 @@ def get_genres():
 def get_publishers():
     query = '''SELECT DISTINCT publisher
                 FROM publishers
-                ORDER BY publisher'''
+                ORDER BY publisher
+                LIMIT 300;'''
     try:
         cursor = connect_database()
         cursor.execute(query)
@@ -88,6 +89,16 @@ def get_publishers():
         publisher_list.append(publisher[0])
 
     return json.dumps(publisher_list)
+
+@api.route('/help/') 
+def get_help():
+    content = ''
+    with open('doc/api-design.txt', 'r') as f:
+        line = f.readline()
+        while line:
+            content += line + '<br />'
+            line = f.readline()
+    return content
 
 def connect_database():
     try:
