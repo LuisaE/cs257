@@ -17,6 +17,8 @@ FEATURES CURRENTLY WORKING:
 - Search publishers using DataTable search
 - Search genres using DataTable search
 - Search platforms using DataTable search
+- When click on a platform/genre/publisher in the platform/genre/publisher pages, the insights card changes the content
 
 FEATURES NOT YET WORKING:
-- [something]
+- Insights' content
+- Detailed filter in homepage

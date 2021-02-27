@@ -50,7 +50,7 @@ function getGames(gamesTable) {
           .add([
             game["name"],
             game["sales"],
-            "<a href='/publishers" +
+            "<a href='/publishers?name=" +
               game["publisher"] +
               "'>" +
               game["publisher"] +
