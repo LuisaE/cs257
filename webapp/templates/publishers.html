@@ -5,6 +5,10 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+    <link
       rel="stylesheet"
       type="text/css"
       href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}"
@@ -91,7 +95,7 @@
         </div>
         <div class="col">
           <div class="card shadow mb-4">
-            <div class="card-body">
+            <div class="card-body" id="publisher_insight">
               <p>Click on a publisher to see insights!</p>
             </div>
           </div>

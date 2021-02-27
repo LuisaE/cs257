@@ -5,6 +5,10 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+    <link
       rel="stylesheet"
       type="text/css"
       href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}"
@@ -98,7 +102,7 @@
             <thead>
               <tr>
                 <th>Game</th>
-                <!-- <th>Sales</th> -->
+                <th>Sales</th>
                 <th>Publisher</th>
                 <th>Platform</th>
                 <th>Genre</th>

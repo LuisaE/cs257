@@ -13,13 +13,15 @@ api = flask.Blueprint('api', __name__)
 
 @api.route('/games/') 
 def get_games():
-    query = '''SELECT DISTINCT games.name, games.year, publishers.publisher, genres.genre, platforms.platform
-                FROM games, publishers, genres, games_platforms, platforms
+    query = '''SELECT DISTINCT games.name, games.year, publishers.publisher, genres.genre, platforms.platform, sales.global_sales
+                FROM games, publishers, genres, games_platforms, platforms, sales
                 WHERE games.publisher_id = publishers.id
                 AND games.genre_id = genres.id
                 AND games.id = games_platforms.games_id
                 AND games_platforms.platforms_id = platforms.id
-                LIMIT 300;'''
+                AND games_platforms.sales_id = sales.id
+                ORDER BY sales.global_sales DESC
+                LIMIT 500;'''
     try:
         cursor = connect_database()
         cursor.execute(query)
@@ -29,8 +31,9 @@ def get_games():
 
     games_dictionary = []
     for row in cursor:
-        name, year, publisher, genre, platform = row
-        games_dictionary.append({'name': name, 'year': year, 'publisher': publisher, 'genre': genre, 'platform': platform })
+        name, year, publisher, genre, platform, sales = row
+        sales = str(sales)
+        games_dictionary.append({'name': name, 'year': year, 'publisher': publisher, 'genre': genre, 'platform': platform, "sales": sales })
 
     return json.dumps(games_dictionary)
 
