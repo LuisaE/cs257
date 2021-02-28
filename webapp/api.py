@@ -93,6 +93,15 @@ def get_publishers():
 
     return json.dumps(publisher_list)
 
+@api.route('/categories/') 
+def get_categories():
+    categories = {
+        'platforms': ['Wii', 'PS2', 'GB', 'DS', 'X360'],
+        'genres': ['Action', 'Sports', 'Shooter', 'Role-Playing', 'Platform'],
+        'publishers': ['Electronic Arts', 'Activision', 'Ubisoft', 'Nintendo', 'Namco Bandai Games']
+    }
+    return json.dumps(categories)
+
 @api.route('/help/') 
 def get_help():
     content = ''

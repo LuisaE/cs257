@@ -12,32 +12,30 @@ following fields.
    genre -- (string) genre of the game
    year -- (integer) year of publication
 
-EXAMPLE(S):
-   [{"name": "Wii Sports", "year": 2006, "publisher": "Nintendo", "genre": "Sports", "platform": "Wii", "sales": "82.53"}, 
+EXAMPLES:
+   No GET parameter: [{"name": "Wii Sports", "year": 2006, "publisher": "Nintendo", "genre": "Sports", "platform": "Wii", "sales": "82.53"}, 
    {"name": "Super Mario Bros.", "year": 1985, "publisher": "Nintendo", "genre": "Platform", "platform": "NES", "sales": "40.24"}, ...]
 
 REQUEST: /platforms
 RESPONSE: an alphabetized JSON list of strings, each of which is an platform.
-EXAMPLE(S): ["2600", "3DO", "3DS", ... ]
+EXAMPLE: ["2600", "3DO", "3DS", ... ]
 
 REQUEST: /publishers
 RESPONSE: an alphabetized JSON list of strings, each of which is an publisher.
-EXAMPLE(S): ["10TACLE Studios", "1C Company", "20th Century Fox Video Games", ... ]
+EXAMPLE: ["10TACLE Studios", "1C Company", "20th Century Fox Video Games", ... ]
 
 REQUEST: /genres
 RESPONSE: an alphabetized JSON list of strings, each of which is an genre.
-EXAMPLE(S): ["Action", "Adventure", "Fighting", ... ]
+EXAMPLE: ["Action", "Adventure", "Fighting", ... ]
 
 REQUEST: /categories
-RESPONSE: returns a JSON dictionary with the categorical entries and their values for the dataset. Example:
+RESPONSE: returns a JSON dictionary with the categorical entries and their values for the dataset. 
+EXAMPLE: 
 {
-   'platforms': [] #array of top 5 platforms
-   'genres': [] #array of top 5 genres
-   'publishers': [] #array of top 5 publishers
+   'platforms': ['Wii', 'PS2', 'GB', 'DS', 'X360'],
+   'genres': ['Action', 'Sports', 'Shooter', 'Role-Playing', 'Platform'],
+   'publishers': ['Electronic Arts', 'Activision', 'Ubisoft', 'Nintendo', 'Namco Bandai Games']
 }
-EXAMPLE(S):
-
-#For the insights pages
 
 REQUEST: /platform?name={text}
 RESPONSE: a JSON list of dictionaries, each of which represents the games in the specified platform

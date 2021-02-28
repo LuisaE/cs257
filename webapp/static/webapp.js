@@ -148,30 +148,116 @@ function getPublishers(publishersTable) {
 
 function genreInsights(genre) {
   var genreDiv = document.getElementById("genre_insight");
+  var topGamesByGenre = `<h4>Top 5 ${genre} games by sales</h4>
+<h4 class="small font-weight-bold">Game 1 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar bg-danger" role="progressbar" style="width: 50%"
+  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 2 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar bg-warning" role="progressbar" style="width: 25%"
+  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 3 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar" role="progressbar" style="width: 15%"
+  aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 4 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar bg-info" role="progressbar" style="width: 10%"
+  aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 5 <span
+  class="float-right">x%</span></h4>
+<div class="progress">
+<div class="progress-bar bg-success" role="progressbar" style="width: 5%"
+  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>`;
   if (genreDiv) {
-    genreDiv.innerHTML =
-      "<h2>" +
-      genre +
-      " Insights</h2> <p>Content will show up here when the feature is ready</p>";
+    genreDiv.innerHTML = "<h2>" + genre + " Insights</h2>" + topGamesByGenre;
   }
 }
 
 function platformInsights(platform) {
   var platformDiv = document.getElementById("platform_insight");
+  var topGamesByPlatform = `<h4>Top 5 ${platform} games by sales</h4>
+<h4 class="small font-weight-bold">Game 1 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar bg-danger" role="progressbar" style="width: 50%"
+  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 2 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar bg-warning" role="progressbar" style="width: 25%"
+  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 3 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar" role="progressbar" style="width: 15%"
+  aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 4 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar bg-info" role="progressbar" style="width: 10%"
+  aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 5 <span
+  class="float-right">x%</span></h4>
+<div class="progress">
+<div class="progress-bar bg-success" role="progressbar" style="width: 5%"
+  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>`;
   if (platformDiv) {
     platformDiv.innerHTML =
-      "<h2>" +
-      platform +
-      " Insights</h2> <p>Content will show up here when the feature is ready</p>";
+      "<h2>" + platform + " Insights</h2>" + topGamesByPlatform;
   }
 }
 
 function publisherInsights(publisher) {
   var publisherDiv = document.getElementById("publisher_insight");
+  var topGamesByPublisher = `<h4>Top 5 games ${publisher} by sales</h4>
+<h4 class="small font-weight-bold">Game 1 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar bg-danger" role="progressbar" style="width: 50%"
+  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 2 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar bg-warning" role="progressbar" style="width: 25%"
+  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 3 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar" role="progressbar" style="width: 15%"
+  aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 4 <span
+  class="float-right">x%</span></h4>
+<div class="progress mb-4">
+<div class="progress-bar bg-info" role="progressbar" style="width: 10%"
+  aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<h4 class="small font-weight-bold">Game 5 <span
+  class="float-right">x%</span></h4>
+<div class="progress">
+<div class="progress-bar bg-success" role="progressbar" style="width: 5%"
+  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>`;
   if (publisherDiv) {
     publisherDiv.innerHTML =
-      "<h2>" +
-      publisher +
-      " Insights</h2> <p>Content will show up here when the feature is ready</p>";
+      "<h2>" + publisher + " Insights</h2>" + topGamesByPublisher;
   }
 }
