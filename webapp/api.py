@@ -21,7 +21,7 @@ def get_games():
                 AND games_platforms.platforms_id = platforms.id
                 AND games_platforms.sales_id = sales.id
                 ORDER BY sales.global_sales DESC
-                LIMIT 500;'''
+                LIMIT 400;'''
     try:
         cursor = connect_database()
         cursor.execute(query)

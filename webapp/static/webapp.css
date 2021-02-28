@@ -2,12 +2,12 @@
 
 body {
   font-family: "Segoe UI", Roboto, "Helvetica Neue";
-  background: #d2f2ff;
+  background: #ffe88d;
 }
 
 header.masthead {
   position: relative;
-  background-color: #c7caca;
+  background-image: url("heading.jpg");
   background-size: cover;
   padding-top: 8rem;
   padding-bottom: 8rem;
@@ -15,12 +15,11 @@ header.masthead {
 
 header.masthead .overlay {
   position: absolute;
-  background-color: #c7caca;
   height: 100%;
   width: 100%;
   top: 0;
   left: 0;
-  opacity: 0.3;
+  opacity: 0.6;
 }
 
 header.masthead h1 {
@@ -35,4 +34,33 @@ header.masthead h2 {
 
 .container-fluid {
   margin-top: 4rem;
+}
+
+#title {
+  font-family: "Arial Black", sans-serif;
+  font-size: 4.5em;
+  letter-spacing: -1px;
+  background-color: black;
+  color: white;
+}
+
+a,
+.page-link {
+  color: #286dc0;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #efefef;
+}
+
+#home,
+navbar-dark .navbar-nav .active > .nav-link,
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link.show,
+.navbar-dark .navbar-nav .show > .nav-link {
+  font-weight: bolder;
+}
+
+small {
+  color: white;
 }

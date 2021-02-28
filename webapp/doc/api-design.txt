@@ -2,7 +2,7 @@
 
 REQUEST: /games
 RESPONSE: a JSON list of dictionaries, each of which represents one
-game, sorted by global sales. Each game dictionary will have the
+game, sorted by global sales limited by 400. Each game dictionary will have the
 following fields.
 
    name -- (string) the title of the game
