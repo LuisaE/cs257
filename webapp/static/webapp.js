@@ -13,6 +13,7 @@ function initialize() {
   getPlatforms(platformsTable);
   getGenres(genresTable);
   getPublishers(publishersTable);
+  setFilters();
 }
 
 function initialize_data_tables() {
@@ -260,4 +261,56 @@ function publisherInsights(publisher) {
     publisherDiv.innerHTML =
       "<h2>" + publisher + " Insights</h2>" + topGamesByPublisher;
   }
+}
+
+function setFilters() {
+  var url = getAPIBaseURL() + "/categories/";
+
+  fetch(url, { method: "get" })
+    .then((response) => response.json())
+
+    .then(function (categories) {
+      var content = `<h3 class="small font-weight-bold">Platforms</h3>`;
+      var platforms = categories["platforms"];
+      for (var k = 0; k < platforms.length; k++) {
+        content += `<div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="${platforms[k]}" value="${platforms[k]}">
+        <label class="form-check-label" for="${platforms[k]}">${platforms[k]}</label>
+      </div>`;
+      }
+      var platformsChecks = document.getElementById("platforms_checks");
+      if (platformsChecks) {
+        platformsChecks.innerHTML = content;
+      }
+
+      var content = `<h3 class="small font-weight-bold">Genres</h3>`;
+      var genres = categories["genres"];
+      for (var k = 0; k < genres.length; k++) {
+        content += `<div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="${genres[k]}" value="${genres[k]}">
+        <label class="form-check-label" for="${genres[k]}">${genres[k]}</label>
+      </div>`;
+      }
+      var genresChecks = document.getElementById("genres_checks");
+      if (genresChecks) {
+        genresChecks.innerHTML = content;
+      }
+
+      var content = `<h3 class="small font-weight-bold">Publishers</h3>`;
+      var publishers = categories["publishers"];
+      for (var k = 0; k < publishers.length; k++) {
+        content += `<div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="${publishers[k]}" value="${publishers[k]}">
+        <label class="form-check-label" for="${publishers[k]}">${publishers[k]}</label>
+      </div>`;
+      }
+      var publishersChecks = document.getElementById("publishers_checks");
+      if (publishersChecks) {
+        publishersChecks.innerHTML = content;
+      }
+    })
+
+    .catch(function (error) {
+      console.log(error);
+    });
 }

@@ -64,3 +64,13 @@ navbar-dark .navbar-nav .active > .nav-link,
 small {
   color: white;
 }
+
+#genres_checks,
+#publishers_checks {
+  padding-top: 15px;
+}
+
+.buttonHolder {
+  text-align: center;
+  padding-top: 15px;
+}
