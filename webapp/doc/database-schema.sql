@@ -1,10 +1,10 @@
 CREATE TABLE sales(
     id SERIAL,
-    na integer,
-    eu integer,
-    jp integer,
-    other integer,
-    global_sales integer
+    na decimal,
+    eu decimal,
+    jp decimal,
+    other decimal,
+    global_sales decimal
 );
 
 CREATE TABLE platforms(
@@ -17,7 +17,7 @@ CREATE TABLE games_platforms(
     platforms_id integer,
     sales_id integer,
     user_score decimal,
-    critic_score decimal
+    critic_score integer
 );
 
 CREATE TABLE games(
