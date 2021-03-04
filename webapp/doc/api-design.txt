@@ -37,7 +37,7 @@ EXAMPLE:
    'publishers': ['Electronic Arts', 'Activision', 'Ubisoft', 'Nintendo', 'Namco Bandai Games']
 }
 
-REQUEST: /platform?name={text}
+REQUEST: /platform/<platform>
 RESPONSE: a JSON list of dictionaries, each of which represents the games in the specified platform
 
    name -- (string) the title of the game
@@ -46,14 +46,14 @@ RESPONSE: a JSON list of dictionaries, each of which represents the games in the
    platform -- (string) the platform of the game
    genre -- (string) genre of the game
    year -- (integer) year of publication
-   na -- (integer) North America sales of the game
-   eu -- (integer) Europe sales of the game
-   jp -- (integer) Japan sales of the game
+   na -- (integer) North American sales of the game
+   eu -- (integer) European sales of the game
+   jp -- (integer) Japanese sales of the game
    user_score -- (decimal) user score of the game
    critic_score --(decimal) critic score of the game
 EXAMPLE(S):
 
-REQUEST: /publisher?name={text}
+REQUEST: /publisher/<publisher>
 RESPONSE: a JSON list of dictionaries, each of which represents the games of the specified publisher
 
    name -- (string) the title of the game
@@ -62,14 +62,14 @@ RESPONSE: a JSON list of dictionaries, each of which represents the games of the
    platform -- (string) the platform of the game
    genre -- (string) genre of the game
    year -- (integer) year of publication
-   na -- (integer) North America sales of the game
-   eu -- (integer) Europe sales of the game
-   jp -- (integer) Japan sales of the game
+   na -- (integer) North American sales of the game
+   eu -- (integer) European sales of the game
+   jp -- (integer) Japanese sales of the game
    user_score -- (decimal) user score of the game
    critic_score --(decimal) critic score of the game
 EXAMPLE(S):
 
-REQUEST: /genre?name={text}
+REQUEST: /genre/<genre>
 RESPONSE: a JSON list of dictionaries, each of which represents games of the specified genre
 
    name -- (string) the title of the game
@@ -78,9 +78,9 @@ RESPONSE: a JSON list of dictionaries, each of which represents games of the spe
    platform -- (string) the platform of the game
    genre -- (string) genre of the game
    year -- (integer) year of publication
-   na -- (integer) North America sales of the game
-   eu -- (integer) Europe sales of the game
-   jp -- (integer) Japan sales of the game
+   na -- (integer) North American sales of the game
+   eu -- (integer) European sales of the game
+   jp -- (integer) Japanese sales of the game
    user_score -- (decimal) user score of the game
    critic_score --(decimal) critic score of the game
 EXAMPLE(S):
