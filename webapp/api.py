@@ -30,7 +30,7 @@ def get_games():
         query += 'AND genres.genre = \'%s\' ' % genre 
     if publisher:
         query += 'AND publishers.publisher = \'%s\' ' % publisher
-    query += "ORDER BY sales.global_sales DESC;"
+    query += "ORDER BY sales.global_sales DESC LIMIT 400;"
 
     try:
         cursor = connect_database()
@@ -45,7 +45,7 @@ def get_games():
             user_score = float(row[9])
         else:
             user_score = None 
-        game_list.append({ 'name':row[0], 'sales':str(row[1]),
+        game_list.append({ 'name':row[0], 'sales':float(row[1]),
                 'publisher':row[2], 'platform':row[3], 
                 'genre':row[4], 'year':row[5], 'na':float(row[6]), 
                 'eu':float(row[7]), 'jp':float(row[8]), 'user_score':user_score, 
