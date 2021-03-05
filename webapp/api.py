@@ -4,6 +4,7 @@ import sys
 import flask
 import json
 import psycopg2
+from flask import request
 
 from config import password
 from config import database
@@ -36,6 +37,48 @@ def get_games():
         games_dictionary.append({'name': name, 'year': year, 'publisher': publisher, 'genre': genre, 'platform': platform, "sales": sales })
 
     return json.dumps(games_dictionary)
+
+@api.route('/test/games/')
+def get_games_optional_params():
+    platform = request.args.get('platform')
+    genre = request.args.get('genre')
+    publisher = request.args.get('publisher')
+    query = '''SELECT DISTINCT games.name, sales.global_sales, publishers.publisher, platforms.platform, genres.genre, games.year, sales.na, sales.eu, sales.jp, games_platforms.user_score, games_platforms.critic_score 
+                FROM sales, platforms, games_platforms, games, publishers, genres
+                WHERE games.publisher_id = publishers.id
+                AND games.genre_id = genres.id
+                AND games_platforms.games_id = games.id
+                AND games_platforms.platforms_id = platforms.id
+                AND games_platforms.sales_id = sales.id '''
+    if platform:
+        query += 'AND platforms.platform = \'%s\' ' % platform 
+    if genre:
+        query += 'AND genres.genre = \'%s\' ' % genre 
+    if publisher:
+        query += 'AND publishers.publisher = \'%s\' ' % publisher
+    query += "ORDER BY sales.global_sales DESC;"
+
+    try:
+        cursor = connect_database()
+        cursor.execute(query, (genre,))
+    except Exception as e:
+        print(e)
+        exit()
+
+    game_list = []
+    for row in cursor:
+        if row[9] is not None:
+            user_score = float(row[9])
+        else:
+            user_score = None 
+        game_list.append({ 'name':row[0], 'global_sales':float(row[1]),
+                'publisher':row[2], 'platform':row[3], 
+                'genre':row[4], 'year':row[5], 'na':float(row[6]), 
+                'eu':float(row[7]), 'jp':float(row[8]), 'user_score':user_score, 
+                'critic_score':row[10] 
+        })
+
+    return json.dumps(game_list)
 
 @api.route('/platforms/') 
 def get_platforms():
