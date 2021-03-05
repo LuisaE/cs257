@@ -12,34 +12,8 @@ from config import user
 
 api = flask.Blueprint('api', __name__)
 
-@api.route('/games/') 
+@api.route('/games/')
 def get_games():
-    query = '''SELECT DISTINCT games.name, games.year, publishers.publisher, genres.genre, platforms.platform, sales.global_sales
-                FROM games, publishers, genres, games_platforms, platforms, sales
-                WHERE games.publisher_id = publishers.id
-                AND games.genre_id = genres.id
-                AND games.id = games_platforms.games_id
-                AND games_platforms.platforms_id = platforms.id
-                AND games_platforms.sales_id = sales.id
-                ORDER BY sales.global_sales DESC
-                LIMIT 400;'''
-    try:
-        cursor = connect_database()
-        cursor.execute(query)
-    except Exception as e:
-        print(e)
-        exit()
-
-    games_dictionary = []
-    for row in cursor:
-        name, year, publisher, genre, platform, sales = row
-        sales = str(sales)
-        games_dictionary.append({'name': name, 'year': year, 'publisher': publisher, 'genre': genre, 'platform': platform, "sales": sales })
-
-    return json.dumps(games_dictionary)
-
-@api.route('/test/games/')
-def get_games_optional_params():
     platform = request.args.get('platform')
     genre = request.args.get('genre')
     publisher = request.args.get('publisher')
@@ -71,7 +45,7 @@ def get_games_optional_params():
             user_score = float(row[9])
         else:
             user_score = None 
-        game_list.append({ 'name':row[0], 'global_sales':float(row[1]),
+        game_list.append({ 'name':row[0], 'sales':str(row[1]),
                 'publisher':row[2], 'platform':row[3], 
                 'genre':row[4], 'year':row[5], 'na':float(row[6]), 
                 'eu':float(row[7]), 'jp':float(row[8]), 'user_score':user_score, 
@@ -135,105 +109,6 @@ def get_publishers():
         publisher_list.append(publisher[0])
 
     return json.dumps(publisher_list)
-
-@api.route('/publisher/<publisher>') 
-def get_publisher_by_publisher(publisher):
-    query = '''SELECT DISTINCT games.name, sales.global_sales, publishers.publisher, platforms.platform, genres.genre, games.year, sales.na, sales.eu, sales.jp, games_platforms.user_score, games_platforms.critic_score 
-                FROM sales, platforms, games_platforms, games, publishers, genres
-                WHERE games.publisher_id = publishers.id
-                AND games.genre_id = genres.id
-                AND games_platforms.games_id = games.id
-                AND games_platforms.platforms_id = platforms.id
-                AND games_platforms.sales_id = sales.id
-                AND publishers.publisher = %s
-                ORDER BY sales.global_sales DESC;'''
-    try:
-        cursor = connect_database()
-        cursor.execute(query, (publisher,))
-    except Exception as e:
-        print(e)
-        exit()
-
-    publisher_list = []
-    for row in cursor:
-        if row[9] is not None:
-            user_score = float(row[9])
-        else:
-            user_score = None 
-        publisher_list.append({ 'name':row[0], 'global_sales':float(row[1]),
-                'publisher':row[2], 'platform':row[3], 
-                'genre':row[4], 'year':row[5], 'na':float(row[6]), 
-                'eu':float(row[7]), 'jp':float(row[8]), 'user_score':user_score, 
-                'critic_score':row[10] 
-        })
-
-    return json.dumps(publisher_list)
-
-@api.route('/platform/<platform>') 
-def get_platform_by_platform(platform):
-    query = '''SELECT DISTINCT games.name, sales.global_sales, publishers.publisher, platforms.platform, genres.genre, games.year, sales.na, sales.eu, sales.jp, games_platforms.user_score, games_platforms.critic_score 
-                FROM sales, platforms, games_platforms, games, publishers, genres
-                WHERE games.publisher_id = publishers.id
-                AND games.genre_id = genres.id
-                AND games_platforms.games_id = games.id
-                AND games_platforms.platforms_id = platforms.id
-                AND games_platforms.sales_id = sales.id
-                AND platforms.platform = %s
-                ORDER BY sales.global_sales DESC;'''
-    try:
-        cursor = connect_database()
-        cursor.execute(query, (platform,))
-    except Exception as e:
-        print(e)
-        exit()
-
-    platform_list = []
-    for row in cursor:
-        if row[9] is not None:
-            user_score = float(row[9])
-        else:
-            user_score = None 
-        platform_list.append({ 'name':row[0], 'global_sales':float(row[1]),
-                'publisher':row[2], 'platform':row[3], 
-                'genre':row[4], 'year':row[5], 'na':float(row[6]), 
-                'eu':float(row[7]), 'jp':float(row[8]), 'user_score':user_score, 
-                'critic_score':row[10] 
-        })
-
-    return json.dumps(platform_list)
-
-@api.route('/genre/<genre>') 
-def get_genre_by_genre(genre):
-    query = '''SELECT DISTINCT games.name, sales.global_sales, publishers.publisher, platforms.platform, genres.genre, games.year, sales.na, sales.eu, sales.jp, games_platforms.user_score, games_platforms.critic_score 
-                FROM sales, platforms, games_platforms, games, publishers, genres
-                WHERE games.publisher_id = publishers.id
-                AND games.genre_id = genres.id
-                AND games_platforms.games_id = games.id
-                AND games_platforms.platforms_id = platforms.id
-                AND games_platforms.sales_id = sales.id
-                AND genres.genre = %s
-                ORDER BY sales.global_sales DESC;'''
-    try:
-        cursor = connect_database()
-        cursor.execute(query, (genre,))
-    except Exception as e:
-        print(e)
-        exit()
-
-    genre_list = []
-    for row in cursor:
-        if row[9] is not None:
-            user_score = float(row[9])
-        else:
-            user_score = None 
-        genre_list.append({ 'name':row[0], 'global_sales':float(row[1]),
-                'publisher':row[2], 'platform':row[3], 
-                'genre':row[4], 'year':row[5], 'na':float(row[6]), 
-                'eu':float(row[7]), 'jp':float(row[8]), 'user_score':user_score, 
-                'critic_score':row[10] 
-        })
-
-    return json.dumps(genre_list)
 
 @api.route('/categories/') 
 def get_categories():
