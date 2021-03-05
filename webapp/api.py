@@ -103,7 +103,7 @@ def get_publisher_by_publisher(publisher):
                 AND games_platforms.platforms_id = platforms.id
                 AND games_platforms.sales_id = sales.id
                 AND publishers.publisher = %s
-                ORDER BY sales.global_sales;'''
+                ORDER BY sales.global_sales DESC;'''
     try:
         cursor = connect_database()
         cursor.execute(query, (publisher,))
@@ -136,7 +136,7 @@ def get_platform_by_platform(platform):
                 AND games_platforms.platforms_id = platforms.id
                 AND games_platforms.sales_id = sales.id
                 AND platforms.platform = %s
-                ORDER BY sales.global_sales;'''
+                ORDER BY sales.global_sales DESC;'''
     try:
         cursor = connect_database()
         cursor.execute(query, (platform,))
@@ -169,7 +169,7 @@ def get_genre_by_genre(genre):
                 AND games_platforms.platforms_id = platforms.id
                 AND games_platforms.sales_id = sales.id
                 AND genres.genre = %s
-                ORDER BY sales.global_sales;'''
+                ORDER BY sales.global_sales DESC;'''
     try:
         cursor = connect_database()
         cursor.execute(query, (genre,))

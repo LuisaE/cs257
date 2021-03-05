@@ -51,7 +51,10 @@ RESPONSE: a JSON list of dictionaries, each of which represents the games in the
    jp -- (integer) Japanese sales of the game
    user_score -- (decimal) user score of the game
    critic_score --(decimal) critic score of the game
-EXAMPLE(S):
+EXAMPLE:
+   /platform/PS3
+      [{"name": "Grand Theft Auto V", "global_sales": 21.04, "publisher": "Take-Two Interactive", "platform": "PS3", "genre": "Action", "year": 2013, "na": 7.02, "eu": 9.09, "jp": 0.98, "user_score": 8.2, "critic_score": 97}, 
+      {"name": "Call of Duty: Black Ops II", "global_sales": 13.79, "publisher": "Activision", "platform": "PS3", "genre": "Shooter", "year": 2012, "na": 4.99, "eu": 5.73, "jp": 0.65, "user_score": 5.3, "critic_score": 83}, ...]
 
 REQUEST: /publisher/<publisher>
 RESPONSE: a JSON list of dictionaries, each of which represents the games of the specified publisher
@@ -67,7 +70,10 @@ RESPONSE: a JSON list of dictionaries, each of which represents the games of the
    jp -- (integer) Japanese sales of the game
    user_score -- (decimal) user score of the game
    critic_score --(decimal) critic score of the game
-EXAMPLE(S):
+EXAMPLE:
+   /publisher/Nintendo
+      [{"name": "Wii Sports", "global_sales": 82.53, "publisher": "Nintendo", "platform": "Wii", "genre": "Sports", "year": 2006, "na": 41.36, "eu": 28.96, "jp": 3.77, "user_score": 8.0, "critic_score": 76},
+       {"name": "Super Mario Bros.", "global_sales": 40.24, "publisher": "Nintendo", "platform": "NES", "genre": "Platform", "year": 1985, "na": 29.08, "eu": 3.58, "jp": 6.81, "user_score": null, "critic_score": null}, ... ]
 
 REQUEST: /genre/<genre>
 RESPONSE: a JSON list of dictionaries, each of which represents games of the specified genre
@@ -84,3 +90,6 @@ RESPONSE: a JSON list of dictionaries, each of which represents games of the spe
    user_score -- (decimal) user score of the game
    critic_score --(decimal) critic score of the game
 EXAMPLE(S):
+   /genre/Sports
+      [{"name": "Wii Sports", "global_sales": 82.53, "publisher": "Nintendo", "platform": "Wii", "genre": "Sports", "year": 2006, "na": 41.36, "eu": 28.96, "jp": 3.77, "user_score": 8.0, "critic_score": 76}, 
+      {"name": "Wii Sports Resort", "global_sales": 32.77, "publisher": "Nintendo", "platform": "Wii", "genre": "Sports", "year": 2009, "na": 15.61, "eu": 10.93, "jp": 3.28, "user_score": 8.0, "critic_score": 80}...]
