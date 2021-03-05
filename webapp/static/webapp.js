@@ -46,7 +46,6 @@ function getGames(gamesTable) {
     .then(function (games) {
       for (var k = 0; k < games.length; k++) {
         var game = games[k];
-        //for now with links are plural just to test - inshights should be singular
         gamesTable.row
           .add([
             game["name"],
@@ -161,32 +160,33 @@ function genreInsights(genre) {
         var game = games[k];
         top_genre_games_by_sales.push(game);
       }
+
       var topGamesByGenre = `<h4>Top 5 ${genre} games by sales</h4>
-<h4 class="small font-weight-bold">${top_genre_games_by_sales[0]["name"]} <span
+<h4 class="small font-weight-bold">${top_genre_games_by_sales[0]["name"]} (${top_genre_games_by_sales[0]["platform"]}) <span
   class="float-right">${top_genre_games_by_sales[0]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
 <div class="progress-bar bg-danger" role="progressbar" style="width: ${top_genre_games_by_sales[0]["global_sales"]}%"
   aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">${top_genre_games_by_sales[1]["name"]} <span
+<h4 class="small font-weight-bold">${top_genre_games_by_sales[1]["name"]} (${top_genre_games_by_sales[1]["platform"]}) <span
   class="float-right">${top_genre_games_by_sales[1]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
 <div class="progress-bar bg-warning" role="progressbar" style="width: ${top_genre_games_by_sales[1]["global_sales"]}%"
   aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">${top_genre_games_by_sales[2]["name"]} <span
+<h4 class="small font-weight-bold">${top_genre_games_by_sales[2]["name"]} (${top_genre_games_by_sales[2]["platform"]}) <span
   class="float-right">${top_genre_games_by_sales[2]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
 <div class="progress-bar" role="progressbar" style="width: ${top_genre_games_by_sales[2]["global_sales"]}%"
   aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">${top_genre_games_by_sales[3]["name"]} <span
+<h4 class="small font-weight-bold">${top_genre_games_by_sales[3]["name"]} (${top_genre_games_by_sales[3]["platform"]}) <span
   class="float-right">${top_genre_games_by_sales[3]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
 <div class="progress-bar bg-info" role="progressbar" style="width: ${top_genre_games_by_sales[3]["global_sales"]}%"
   aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">${top_genre_games_by_sales[4]["name"]} <span
+<h4 class="small font-weight-bold">${top_genre_games_by_sales[4]["name"]} (${top_genre_games_by_sales[4]["platform"]})<span
   class="float-right">${top_genre_games_by_sales[4]["global_sales"]} million sales</span></h4>
 <div class="progress">
 <div class="progress-bar bg-success" role="progressbar" style="width: ${top_genre_games_by_sales[4]["global_sales"]}%"
@@ -205,80 +205,116 @@ function genreInsights(genre) {
 
 function platformInsights(platform) {
   var platformDiv = document.getElementById("platform_insight");
-  var topGamesByPlatform = `<h4>Top 5 ${platform} games by sales</h4>
-<h4 class="small font-weight-bold">Game 1 <span
-  class="float-right">x%</span></h4>
+
+  var url = getAPIBaseURL() + "/platform/" + platform;
+
+  fetch(url, { method: "get" })
+    .then((response) => response.json())
+
+    .then(function (games) {
+      top_platform_games_by_sales = [];
+      for (var k = 0; k < 5; k++) {
+        var game = games[k];
+        top_platform_games_by_sales.push(game);
+      }
+
+      var topGamesByPlatform = `<h4>Top 5 ${platform} games by sales</h4>
+<h4 class="small font-weight-bold">${top_platform_games_by_sales[0]["name"]} <span
+  class="float-right">${top_platform_games_by_sales[0]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
-<div class="progress-bar bg-danger" role="progressbar" style="width: 50%"
+<div class="progress-bar bg-danger" role="progressbar" style="width: ${top_platform_games_by_sales[0]["global_sales"]}%"
   aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">Game 2 <span
-  class="float-right">x%</span></h4>
+<h4 class="small font-weight-bold">${top_platform_games_by_sales[1]["name"]} <span
+  class="float-right">${top_platform_games_by_sales[1]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
-<div class="progress-bar bg-warning" role="progressbar" style="width: 25%"
+<div class="progress-bar bg-warning" role="progressbar" style="width: ${top_platform_games_by_sales[1]["global_sales"]}%"
   aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">Game 3 <span
-  class="float-right">x%</span></h4>
+<h4 class="small font-weight-bold">${top_platform_games_by_sales[2]["name"]} <span
+  class="float-right">${top_platform_games_by_sales[2]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
-<div class="progress-bar" role="progressbar" style="width: 15%"
+<div class="progress-bar" role="progressbar" style="width: ${top_platform_games_by_sales[2]["global_sales"]}%"
   aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">Game 4 <span
-  class="float-right">x%</span></h4>
+<h4 class="small font-weight-bold">${top_platform_games_by_sales[3]["name"]} <span
+  class="float-right">${top_platform_games_by_sales[3]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
-<div class="progress-bar bg-info" role="progressbar" style="width: 10%"
+<div class="progress-bar bg-info" role="progressbar" style="width: ${top_platform_games_by_sales[3]["global_sales"]}%"
   aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">Game 5 <span
-  class="float-right">x%</span></h4>
+<h4 class="small font-weight-bold">${top_platform_games_by_sales[4]["name"]} <span
+  class="float-right">${top_platform_games_by_sales[4]["global_sales"]} million sales</span></h4>
 <div class="progress">
-<div class="progress-bar bg-success" role="progressbar" style="width: 5%"
+<div class="progress-bar bg-success" role="progressbar" style="width: ${top_platform_games_by_sales[4]["global_sales"]}%"
   aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 </div>`;
-  if (platformDiv) {
-    platformDiv.innerHTML =
-      "<h2>" + platform + " Insights</h2>" + topGamesByPlatform;
-  }
+      if (platformDiv) {
+        platformDiv.innerHTML =
+          "<h2>" + platform + " Insights</h2>" + topGamesByPlatform;
+      }
+    })
+
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 function publisherInsights(publisher) {
   var publisherDiv = document.getElementById("publisher_insight");
-  var topGamesByPublisher = `<h4>Top 5 games ${publisher} by sales</h4>
-<h4 class="small font-weight-bold">Game 1 <span
-  class="float-right">x%</span></h4>
+
+  var url = getAPIBaseURL() + "/publisher/" + publisher;
+
+  fetch(url, { method: "get" })
+    .then((response) => response.json())
+
+    .then(function (games) {
+      top_publisher_games_by_sales = [];
+      for (var k = 0; k < 5; k++) {
+        var game = games[k];
+        top_publisher_games_by_sales.push(game);
+      }
+
+      var topGamesByPublisher = `<h4>Top 5 games ${publisher} by sales</h4>
+<h4 class="small font-weight-bold">${top_publisher_games_by_sales[0]["name"]} (${top_publisher_games_by_sales[0]["platform"]}) <span
+  class="float-right">${top_publisher_games_by_sales[0]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
-<div class="progress-bar bg-danger" role="progressbar" style="width: 50%"
+<div class="progress-bar bg-danger" role="progressbar" style="width: ${top_publisher_games_by_sales[0]["global_sales"]}%"
   aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">Game 2 <span
-  class="float-right">x%</span></h4>
+<h4 class="small font-weight-bold">${top_publisher_games_by_sales[1]["name"]} (${top_publisher_games_by_sales[1]["platform"]})  <span
+  class="float-right">${top_publisher_games_by_sales[1]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
-<div class="progress-bar bg-warning" role="progressbar" style="width: 25%"
+<div class="progress-bar bg-warning" role="progressbar" style="width: ${top_publisher_games_by_sales[1]["global_sales"]}%"
   aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">Game 3 <span
-  class="float-right">x%</span></h4>
+<h4 class="small font-weight-bold">${top_publisher_games_by_sales[2]["name"]} (${top_publisher_games_by_sales[2]["platform"]})  <span
+  class="float-right">${top_publisher_games_by_sales[2]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
-<div class="progress-bar" role="progressbar" style="width: 15%"
+<div class="progress-bar" role="progressbar" style="width: ${top_publisher_games_by_sales[2]["global_sales"]}%"
   aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">Game 4 <span
-  class="float-right">x%</span></h4>
+<h4 class="small font-weight-bold">${top_publisher_games_by_sales[3]["name"]} (${top_publisher_games_by_sales[3]["platform"]})  <span
+  class="float-right">${top_publisher_games_by_sales[3]["global_sales"]} million sales</span></h4>
 <div class="progress mb-4">
-<div class="progress-bar bg-info" role="progressbar" style="width: 10%"
+<div class="progress-bar bg-info" role="progressbar" style="width: ${top_publisher_games_by_sales[3]["global_sales"]}%"
   aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
-<h4 class="small font-weight-bold">Game 5 <span
-  class="float-right">x%</span></h4>
+<h4 class="small font-weight-bold">${top_publisher_games_by_sales[4]["name"]} (${top_publisher_games_by_sales[4]["platform"]})  <span
+  class="float-right">${top_publisher_games_by_sales[4]["global_sales"]} million sales</span></h4>
 <div class="progress">
-<div class="progress-bar bg-success" role="progressbar" style="width: 5%"
+<div class="progress-bar bg-success" role="progressbar" style="width: ${top_publisher_games_by_sales[4]["global_sales"]}%"
   aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 </div>`;
-  if (publisherDiv) {
-    publisherDiv.innerHTML =
-      "<h2>" + publisher + " Insights</h2>" + topGamesByPublisher;
-  }
+      if (publisherDiv) {
+        publisherDiv.innerHTML =
+          "<h2>" + publisher + " Insights</h2>" + topGamesByPublisher;
+      }
+    })
+
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 function setFilters() {
