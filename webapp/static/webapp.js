@@ -432,7 +432,6 @@ function publisherInsights(publisher) {
     .then((response) => response.json())
 
       .then(function (games_user_score) {
-        console.log('in second then')
         top_publisher_games_by_user_score = [];
         if (games_user_score.length >= 5) {
           for (var k = 0; k < 5; k++) {
