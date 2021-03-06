@@ -21,9 +21,9 @@ EXAMPLE:
    'publishers': ['Electronic Arts', 'Activision', 'Ubisoft', 'Nintendo', 'Namco Bandai Games']
 }
 
-REQUEST: /games/?platform=platform&genre=genre&publisher=publisher
+REQUEST: /games/?platform=platform&genre=genre&publisher=publisher&order_by=critic_score/user_score
 RESPONSE: a JSON list of dictionaries, each of which represents the games with the specified criteria.
-The parameters are optional and additive.
+The parameters are optional and additive. The order_by parameter only accepts critic_score and user_score and defaults to global sales
 
    name -- (string) the title of the game
    global_sales -- (integer) number of global sales of the game

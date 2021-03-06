@@ -17,6 +17,7 @@ def get_games():
     platform = request.args.get('platform')
     genre = request.args.get('genre')
     publisher = request.args.get('publisher')
+    order_by = request.args.get('order_by')
     query = '''SELECT DISTINCT games.name, sales.global_sales, publishers.publisher, platforms.platform, genres.genre, games.year, sales.na, sales.eu, sales.jp, games_platforms.user_score, games_platforms.critic_score 
                 FROM sales, platforms, games_platforms, games, publishers, genres
                 WHERE games.publisher_id = publishers.id
@@ -30,7 +31,10 @@ def get_games():
         query += 'AND genres.genre = \'%s\' ' % genre 
     if publisher:
         query += 'AND publishers.publisher = \'%s\' ' % publisher
-    query += "ORDER BY sales.global_sales DESC LIMIT 400;"
+    if order_by == 'critic_score' or order_by == 'user_score':
+        query += 'ORDER BY games_platforms.%s DESC NULLS LAST LIMIT 400;' % order_by
+    else:
+        query += "ORDER BY sales.global_sales DESC LIMIT 400;"
 
     try:
         cursor = connect_database()

@@ -196,7 +196,56 @@ function genreInsights(genre) {
         genreDiv.innerHTML =
           "<h2>" + genre + " Insights</h2>" + topGamesByGenre;
       }
+      url = url += '&order_by=user_score';
+      return fetch(url, { method: "get" })
     })
+
+    .then((response) => response.json())
+
+      .then(function (games_user_score) {
+        top_genre_games_by_user_score = [];
+        if (games_user_score.length >= 5) {
+          for (var k = 0; k < 5; k++) {
+            var game = games_user_score[k];
+            top_genre_games_by_user_score.push(game);
+          }
+  
+          var topGamesByGenreUserScore = `<br> <h4>Top 5 ${genre} games by user score</h4>
+  <h4 class="small font-weight-bold">${top_genre_games_by_user_score[0]["name"]} <span
+    class="float-right">${top_genre_games_by_user_score[0]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar bg-danger" role="progressbar" style="width: ${top_genre_games_by_user_score[0]["user_score"]}%"
+    aria-valuenow="8" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_genre_games_by_user_score[1]["name"]} <span
+    class="float-right">${top_genre_games_by_user_score[1]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar bg-warning" role="progressbar" style="width: ${top_genre_games_by_user_score[1]["user_score"]}%"
+    aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_genre_games_by_user_score[2]["name"]} <span
+    class="float-right">${top_genre_games_by_user_score[2]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar" role="progressbar" style="width: ${top_genre_games_by_user_score[2]["user_score"]}%"
+    aria-valuenow="4" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_genre_games_by_user_score[3]["name"]} <span
+    class="float-right">${top_genre_games_by_user_score[3]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar bg-info" role="progressbar" style="width: ${top_genre_games_by_user_score[3]["user_score"]}%"
+    aria-valuenow="2" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_genre_games_by_user_score[4]["name"]} <span
+    class="float-right">${top_genre_games_by_user_score[4]["user_score"]}/10</span></h4>
+  <div class="progress">
+  <div class="progress-bar bg-success" role="progressbar" style="width: ${top_genre_games_by_user_score[4]["user_score"]}%"
+    aria-valuenow="1" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>`;
+          if (genreDiv) {
+            genreDiv.innerHTML += topGamesByGenreUserScore;
+          }
+        } 
+      })
 
     .catch(function (error) {
       console.log(error);
@@ -257,13 +306,60 @@ function platformInsights(platform) {
       } else {
         if (platformDiv) {
           platformDiv.innerHTML =
-            "<h2>" +
-            platform +
-            " Insights</h2>" +
+            "<h2>" + platform + " Insights</h2>" +
             "<p>Sorry, this platform does not have enough games, try another one!<p/>";
         }
       }
+      url = url += '&order_by=user_score';
+      return fetch(url, { method: "get" })
     })
+
+    .then((response) => response.json())
+
+      .then(function (games_user_score) {
+        top_platform_games_by_user_score = [];
+        if (games_user_score.length >= 5) {
+          for (var k = 0; k < 5; k++) {
+            var game = games_user_score[k];
+            top_platform_games_by_user_score.push(game);
+          }
+  
+          var topGamesByPlatformUserScore = `<br> <h4>Top 5 ${platform} games by user score</h4>
+  <h4 class="small font-weight-bold">${top_platform_games_by_user_score[0]["name"]} <span
+    class="float-right">${top_platform_games_by_user_score[0]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar bg-danger" role="progressbar" style="width: ${top_platform_games_by_user_score[0]["user_score"]}%"
+    aria-valuenow="8" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_platform_games_by_user_score[1]["name"]} <span
+    class="float-right">${top_platform_games_by_user_score[1]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar bg-warning" role="progressbar" style="width: ${top_platform_games_by_user_score[1]["user_score"]}%"
+    aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_platform_games_by_user_score[2]["name"]} <span
+    class="float-right">${top_platform_games_by_user_score[2]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar" role="progressbar" style="width: ${top_platform_games_by_user_score[2]["user_score"]}%"
+    aria-valuenow="4" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_platform_games_by_user_score[3]["name"]} <span
+    class="float-right">${top_platform_games_by_user_score[3]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar bg-info" role="progressbar" style="width: ${top_platform_games_by_user_score[3]["user_score"]}%"
+    aria-valuenow="2" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_platform_games_by_user_score[4]["name"]} <span
+    class="float-right">${top_platform_games_by_user_score[4]["user_score"]}/10</span></h4>
+  <div class="progress">
+  <div class="progress-bar bg-success" role="progressbar" style="width: ${top_platform_games_by_user_score[4]["user_score"]}%"
+    aria-valuenow="1" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>`;
+          if (platformDiv) {
+            platformDiv.innerHTML += topGamesByPlatformUserScore;
+          }
+        } 
+      })
 
     .catch(function (error) {
       console.log(error);
@@ -328,9 +424,64 @@ function publisherInsights(publisher) {
             publisher +
             " Insights</h2>" +
             "<p>Sorry, this publisher does not have enough games, try another one!<p/>";
-        }
-      }
+        }}
+        url = url += '&order_by=user_score';
+      return fetch(url, { method: "get" })
     })
+
+    .then((response) => response.json())
+
+      .then(function (games_user_score) {
+        console.log('in second then')
+        top_publisher_games_by_user_score = [];
+        if (games_user_score.length >= 5) {
+          for (var k = 0; k < 5; k++) {
+            var game = games_user_score[k];
+            top_publisher_games_by_user_score.push(game);
+          }
+  
+          var topGamesByPublisherUserScore = `<br> <h4>Top 5 ${publisher} games by user score</h4>
+  <h4 class="small font-weight-bold">${top_publisher_games_by_user_score[0]["name"]} <span
+    class="float-right">${top_publisher_games_by_user_score[0]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar bg-danger" role="progressbar" style="width: ${top_publisher_games_by_user_score[0]["user_score"]}%"
+    aria-valuenow="8" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_publisher_games_by_user_score[1]["name"]} <span
+    class="float-right">${top_publisher_games_by_user_score[1]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar bg-warning" role="progressbar" style="width: ${top_publisher_games_by_user_score[1]["user_score"]}%"
+    aria-valuenow="6" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_publisher_games_by_user_score[2]["name"]} <span
+    class="float-right">${top_publisher_games_by_user_score[2]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar" role="progressbar" style="width: ${top_publisher_games_by_user_score[2]["user_score"]}%"
+    aria-valuenow="4" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_publisher_games_by_user_score[3]["name"]} <span
+    class="float-right">${top_publisher_games_by_user_score[3]["user_score"]}/10</span></h4>
+  <div class="progress mb-4">
+  <div class="progress-bar bg-info" role="progressbar" style="width: ${top_publisher_games_by_user_score[3]["user_score"]}%"
+    aria-valuenow="2" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>
+  <h4 class="small font-weight-bold">${top_publisher_games_by_user_score[4]["name"]} <span
+    class="float-right">${top_publisher_games_by_user_score[4]["user_score"]}/10</span></h4>
+  <div class="progress">
+  <div class="progress-bar bg-success" role="progressbar" style="width: ${top_publisher_games_by_user_score[4]["user_score"]}%"
+    aria-valuenow="1" aria-valuemin="0" aria-valuemax="10"></div>
+  </div>`;
+        if (publisherDiv) {
+          publisherDiv.innerHTML += topGamesByPublisherUserScore;
+        }
+        } else {
+          if (publisherDiv) {
+            publisherDiv.innerHTML =
+              "<h2>" + publisher + " Insights</h2>" +
+              "<p>Sorry, this publisher does not have enough games, try another one!<p/>";
+          }
+        }
+      })
 
     .catch(function (error) {
       console.log(error);
