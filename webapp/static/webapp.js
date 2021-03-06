@@ -14,6 +14,21 @@ function initialize() {
   getGenres(genresTable);
   getPublishers(publishersTable);
   setFilters();
+  openInsights();
+}
+
+function openInsights() {
+  url = window.location.search;
+  if (url.includes("platform")) {
+    var platform = url.split("=")[1];
+    platformInsights(platform);
+  } else if (url.includes("genre")) {
+    var genre = url.split("=")[1];
+    genreInsights(genre);
+  } else if (url.includes("publisher")) {
+    var publisher = url.split("=")[1];
+    publisherInsights(publisher);
+  }
 }
 
 function initialize_data_tables() {
@@ -50,17 +65,17 @@ function getGames(gamesTable) {
           .add([
             game["name"],
             game["sales"],
-            "<a href='/publishers?name=" +
+            "<a href='/publishers?publisher=" +
               game["publisher"] +
               "'>" +
               game["publisher"] +
               "</a>",
-            "<a href='/platforms?name=" +
+            "<a href='/platforms?platform=" +
               game["platform"] +
               "'>" +
               game["platform"] +
               "</a>",
-            "<a href='/genres?name=" +
+            "<a href='/genres?genre=" +
               game["genre"] +
               "'>" +
               game["genre"] +
@@ -147,7 +162,7 @@ function getPublishers(publishersTable) {
 }
 
 function genreInsights(genre) {
-  var colors = [' bg-danger', ' bg-warning', '', ' bg-info', ' bg-success']
+  var colors = [" bg-danger", " bg-warning", "", " bg-info", " bg-success"];
   var genreDiv = document.getElementById("genre_insight");
 
   var url = getAPIBaseURL() + "/games?genre=" + genre;
@@ -172,7 +187,7 @@ function genreInsights(genre) {
       }
       if (genreDiv) {
         genreDiv.innerHTML =
-          "<h2>" + genre + " Insights</h2>" + topGamesByGenre;
+          "<h2>" + genre + " Insights</h2>" + topGamesByGenre + "<hr>";
       }
       url = url += "&order_by=user_score";
       return fetch(url, { method: "get" });
@@ -189,11 +204,19 @@ function genreInsights(genre) {
         }
         var topGamesByGenreUserScore = `<br> <h4>Top 5 ${genre} games by user score</h4>`;
         for (var k = 0; k < 5; k++) {
-          topGamesByGenreUserScore += `<h4 class="small font-weight-bold">${top_genre_games_by_user_score[k]["name"]} <span
-          class="float-right">${top_genre_games_by_user_score[k]["user_score"]}/10</span></h4>
+          topGamesByGenreUserScore += `<h4 class="small font-weight-bold">${
+            top_genre_games_by_user_score[k]["name"]
+          } <span
+          class="float-right">${
+            top_genre_games_by_user_score[k]["user_score"]
+          }/10</span></h4>
           <div class="progress mb-4">
-          <div class="progress-bar${colors[k]}" role="progressbar" style="width: 
-          ${10 * top_genre_games_by_user_score[k]["user_score"]}%"aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"></div></div>`;
+          <div class="progress-bar${
+            colors[k]
+          }" role="progressbar" style="width: 
+          ${
+            10 * top_genre_games_by_user_score[k]["user_score"]
+          }%"aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"></div></div>`;
         }
         if (genreDiv) {
           genreDiv.innerHTML += topGamesByGenreUserScore;
@@ -206,7 +229,7 @@ function genreInsights(genre) {
 }
 
 function platformInsights(platform) {
-  var colors = [' bg-danger', ' bg-warning', '', ' bg-info', ' bg-success']
+  var colors = [" bg-danger", " bg-warning", "", " bg-info", " bg-success"];
   var platformDiv = document.getElementById("platform_insight");
 
   var url = getAPIBaseURL() + "/games/?platform=" + platform;
@@ -222,17 +245,17 @@ function platformInsights(platform) {
           top_platform_games_by_sales.push(game);
         }
         var topGamesByPlatform = `<h4>Top 5 ${platform} games by sales</h4>`;
-      for (var k = 0; k < 5; k++) {
-        topGamesByPlatform += `<h4 class="small font-weight-bold">${top_platform_games_by_sales[k]["name"]} (${top_platform_games_by_sales[k]["platform"]}) <span
+        for (var k = 0; k < 5; k++) {
+          topGamesByPlatform += `<h4 class="small font-weight-bold">${top_platform_games_by_sales[k]["name"]} (${top_platform_games_by_sales[k]["platform"]}) <span
         class="float-right">${top_platform_games_by_sales[k]["sales"]} million sales</span></h4>
         <div class="progress mb-4">
         <div class="progress-bar${colors[k]}" role="progressbar" style="width: ${top_platform_games_by_sales[k]["sales"]}%"
         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
         </div>`;
-      }
+        }
         if (platformDiv) {
           platformDiv.innerHTML =
-            "<h2>" + platform + " Insights</h2>" + topGamesByPlatform;
+            "<h2>" + platform + " Insights</h2>" + topGamesByPlatform + "<hr>";
         }
       } else {
         if (platformDiv) {
@@ -258,10 +281,18 @@ function platformInsights(platform) {
         }
         var topGamesByPlatformUserScore = `<br> <h4>Top 5 ${platform} games by user score</h4>`;
         for (var k = 0; k < 5; k++) {
-          topGamesByPlatformUserScore += `<h4 class="small font-weight-bold">${top_platform_games_by_user_score[k]["name"]} <span
-          class="float-right">${top_platform_games_by_user_score[k]["user_score"]}/10</span></h4>
+          topGamesByPlatformUserScore += `<h4 class="small font-weight-bold">${
+            top_platform_games_by_user_score[k]["name"]
+          } <span
+          class="float-right">${
+            top_platform_games_by_user_score[k]["user_score"]
+          }/10</span></h4>
           <div class="progress mb-4">
-          <div class="progress-bar${colors[k]}" role="progressbar" style="width: ${10 * top_platform_games_by_user_score[k]["user_score"]}%"
+          <div class="progress-bar${
+            colors[k]
+          }" role="progressbar" style="width: ${
+            10 * top_platform_games_by_user_score[k]["user_score"]
+          }%"
           aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"></div></div>`;
         }
         if (platformDiv) {
@@ -276,7 +307,7 @@ function platformInsights(platform) {
 }
 
 function publisherInsights(publisher) {
-  var colors = [' bg-danger', ' bg-warning', '', ' bg-info', ' bg-success']
+  var colors = [" bg-danger", " bg-warning", "", " bg-info", " bg-success"];
   var publisherDiv = document.getElementById("publisher_insight");
 
   var url = getAPIBaseURL() + "/games/?publisher=" + publisher;
@@ -302,7 +333,11 @@ function publisherInsights(publisher) {
 
         if (publisherDiv) {
           publisherDiv.innerHTML =
-            "<h2>" + publisher + " Insights</h2>" + topGamesByPublisher;
+            "<h2>" +
+            publisher +
+            " Insights</h2>" +
+            topGamesByPublisher +
+            "<hr>";
         }
       } else {
         if (publisherDiv) {
@@ -328,10 +363,18 @@ function publisherInsights(publisher) {
         }
         var topGamesByPublisherUserScore = `<br> <h4>Top 5 ${publisher} games by user score</h4>`;
         for (var k = 0; k < 5; k++) {
-          topGamesByPublisherUserScore += `<h4 class="small font-weight-bold">${top_publisher_games_by_user_score[k]["name"]} <span
-          class="float-right">${top_publisher_games_by_user_score[k]["user_score"]}/10</span></h4>
+          topGamesByPublisherUserScore += `<h4 class="small font-weight-bold">${
+            top_publisher_games_by_user_score[k]["name"]
+          } <span
+          class="float-right">${
+            top_publisher_games_by_user_score[k]["user_score"]
+          }/10</span></h4>
           <div class="progress mb-4">
-          <div class="progress-bar${colors[k]}" role="progressbar" style="width: ${10 * top_publisher_games_by_user_score[k]["user_score"]}%"
+          <div class="progress-bar${
+            colors[k]
+          }" role="progressbar" style="width: ${
+            10 * top_publisher_games_by_user_score[k]["user_score"]
+          }%"
           aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"></div></div>`;
         }
 
