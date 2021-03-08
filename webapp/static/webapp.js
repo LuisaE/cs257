@@ -185,6 +185,7 @@ function genreInsights(genre) {
         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
         </div>`;
       }
+      topGamesByGenre += `<p>Note: the full bar represents 100 million sales</p>`
       if (genreDiv) {
         genreDiv.innerHTML =
           "<h2>" + genre + " Insights</h2>" + topGamesByGenre + "<hr>";
@@ -202,7 +203,7 @@ function genreInsights(genre) {
           var game = games_user_score[k];
           top_genre_games_by_user_score.push(game);
         }
-        var topGamesByGenreUserScore = `<br> <h4>Top 5 ${genre} games by user score</h4>`;
+        var topGamesByGenreUserScore = `<h4>Top 5 ${genre} games by user score</h4>`;
         for (var k = 0; k < 5; k++) {
           topGamesByGenreUserScore += `<h4 class="small font-weight-bold">${
             top_genre_games_by_user_score[k]["name"]
@@ -253,6 +254,7 @@ function platformInsights(platform) {
         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
         </div>`;
         }
+        topGamesByPlatform += `<p>Note: the full bar represents 100 million sales</p>`
         if (platformDiv) {
           platformDiv.innerHTML =
             "<h2>" + platform + " Insights</h2>" + topGamesByPlatform + "<hr>";
@@ -279,7 +281,7 @@ function platformInsights(platform) {
           var game = games_user_score[k];
           top_platform_games_by_user_score.push(game);
         }
-        var topGamesByPlatformUserScore = `<br> <h4>Top 5 ${platform} games by user score</h4>`;
+        var topGamesByPlatformUserScore = `<h4>Top 5 ${platform} games by user score</h4>`;
         for (var k = 0; k < 5; k++) {
           topGamesByPlatformUserScore += `<h4 class="small font-weight-bold">${
             top_platform_games_by_user_score[k]["name"]
@@ -330,6 +332,7 @@ function publisherInsights(publisher) {
           <div class="progress-bar${colors[k]}" role="progressbar" style="width: ${top_publisher_games_by_sales[k]["sales"]}%"
           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div></div>`;
         }
+        topGamesByPublisher += `<p>Note: the full bar represents 100 million sales</p>`
 
         if (publisherDiv) {
           publisherDiv.innerHTML =
@@ -361,7 +364,7 @@ function publisherInsights(publisher) {
           var game = games_user_score[k];
           top_publisher_games_by_user_score.push(game);
         }
-        var topGamesByPublisherUserScore = `<br> <h4>Top 5 ${publisher} games by user score</h4>`;
+        var topGamesByPublisherUserScore = `<h4>Top 5 ${publisher} games by user score</h4>`;
         for (var k = 0; k < 5; k++) {
           topGamesByPublisherUserScore += `<h4 class="small font-weight-bold">${
             top_publisher_games_by_user_score[k]["name"]
