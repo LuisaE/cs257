@@ -8,12 +8,12 @@ function initialize() {
     platformsTable,
     publishersTable,
     genresTable,
-  ] = initialize_data_tables();
+  ] = initializeDataTables();
   getGames(gamesTable);
   getPlatforms(platformsTable);
   getGenres(genresTable);
   getPublishers(publishersTable);
-  setFilters();
+  setGamesFilters();
   openInsights();
 }
 
@@ -31,7 +31,7 @@ function openInsights() {
   }
 }
 
-function initialize_data_tables() {
+function initializeDataTables() {
   var gamesTable = $("#games").DataTable({
     order: [[1, "desc"]],
   });
@@ -185,7 +185,7 @@ function genreInsights(genre) {
         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
         </div>`;
       }
-      topGamesByGenre += `<p>Note: the full bar represents 100 million sales</p>`
+      topGamesByGenre += `<p>Note: the full bar represents 100 million sales</p>`;
       if (genreDiv) {
         genreDiv.innerHTML =
           "<h2>" + genre + " Insights</h2>" + topGamesByGenre + "<hr>";
@@ -254,7 +254,7 @@ function platformInsights(platform) {
         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
         </div>`;
         }
-        topGamesByPlatform += `<p>Note: the full bar represents 100 million sales</p>`
+        topGamesByPlatform += `<p>Note: the full bar represents 100 million sales</p>`;
         if (platformDiv) {
           platformDiv.innerHTML =
             "<h2>" + platform + " Insights</h2>" + topGamesByPlatform + "<hr>";
@@ -332,7 +332,7 @@ function publisherInsights(publisher) {
           <div class="progress-bar${colors[k]}" role="progressbar" style="width: ${top_publisher_games_by_sales[k]["sales"]}%"
           aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div></div>`;
         }
-        topGamesByPublisher += `<p>Note: the full bar represents 100 million sales</p>`
+        topGamesByPublisher += `<p>Note: the full bar represents 100 million sales</p>`;
 
         if (publisherDiv) {
           publisherDiv.innerHTML =
@@ -400,7 +400,7 @@ function publisherInsights(publisher) {
     });
 }
 
-function setFilters() {
+function setGamesFilters() {
   var url = getAPIBaseURL() + "/categories/";
 
   fetch(url, { method: "get" })
@@ -411,7 +411,7 @@ function setFilters() {
       var platforms = categories["platforms"];
       for (var k = 0; k < platforms.length; k++) {
         content += `<div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="${platforms[k]}" value="${platforms[k]}">
+        <input class="form-check-input" type="checkbox" id="platform-${platforms[k]}" value="${platforms[k]}">
         <label class="form-check-label" for="${platforms[k]}">${platforms[k]}</label>
       </div>`;
       }
@@ -424,7 +424,7 @@ function setFilters() {
       var genres = categories["genres"];
       for (var k = 0; k < genres.length; k++) {
         content += `<div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="${genres[k]}" value="${genres[k]}">
+        <input class="form-check-input" type="checkbox" id="genre-${genres[k]}" value="${genres[k]}">
         <label class="form-check-label" for="${genres[k]}">${genres[k]}</label>
       </div>`;
       }
@@ -437,7 +437,7 @@ function setFilters() {
       var publishers = categories["publishers"];
       for (var k = 0; k < publishers.length; k++) {
         content += `<div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="${publishers[k]}" value="${publishers[k]}">
+        <input class="form-check-input" type="checkbox" id="publisher-${publishers[k]}" value="${publishers[k]}">
         <label class="form-check-label" for="${publishers[k]}">${publishers[k]}</label>
       </div>`;
       }
@@ -450,4 +450,29 @@ function setFilters() {
     .catch(function (error) {
       console.log(error);
     });
+}
+
+function filterGames() {
+  var tableHeader = document.getElementById("table_header");
+  var gamesFilterTable = $("#games").DataTable();
+  (platform = null), (publisher = null), (genre = null);
+  $("input[type=checkbox]:checked").each(function () {
+    var value = $(this).attr("id");
+    if (value.includes("publisher")) {
+      publisher = value.split("-")[1];
+    } else if (value.includes("platform")) {
+      platform = value.split("-")[1];
+    } else {
+      genre = value.split("-")[1];
+    }
+  });
+  if (tableHeader && (platform || publisher || genre)) {
+    tableHeader.innerHTML = "Filter results";
+    if (publisher) gamesFilterTable.column(2).search(publisher).draw();
+    if (platform) gamesFilterTable.column(3).search(platform).draw();
+    if (genre) gamesFilterTable.column(4).search(genre).draw();
+  } else if (tableHeader) {
+    tableHeader.innerHTML = "Top 400 games by global sales ranking";
+    gamesFilterTable.search("").columns().search("").draw();
+  }
 }

@@ -91,26 +91,28 @@
         <div class="col-3">
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold">Filter (not working yet)</h6>
+              <h6 class="m-0 font-weight-bold">Filter</h6>
             </div>
             <div class="card-body">
-              <form>
-                <div id="platforms_checks"></div>
-                <div id="genres_checks"></div>
-                <div id="publishers_checks"></div>
-                <div class="buttonHolder">
-                  <button type="submit" class="btn btn-primary" id="filter">
-                    Filter
-                  </button>
-                </div>
-              </form>
+              <div id="platforms_checks"></div>
+              <div id="genres_checks"></div>
+              <div id="publishers_checks"></div>
+              <div class="buttonHolder">
+                <button
+                  class="btn btn-primary"
+                  id="filter"
+                  onclick="filterGames()"
+                >
+                  Filter
+                </button>
+              </div>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold">
+              <h6 class="m-0 font-weight-bold" id="table_header">
                 Top 400 games by global sales ranking
               </h6>
             </div>
