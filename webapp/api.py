@@ -34,7 +34,7 @@ def get_games():
     if order_by == 'critic_score' or order_by == 'user_score':
         query += 'ORDER BY games_platforms.%s DESC NULLS LAST LIMIT 400;' % order_by
     else:
-        query += "ORDER BY sales.global_sales DESC LIMIT 400;"
+        query += "ORDER BY sales.global_sales DESC LIMIT 500;"
 
     try:
         cursor = connect_database()

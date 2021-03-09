@@ -455,24 +455,36 @@ function setGamesFilters() {
 function filterGames() {
   var tableHeader = document.getElementById("table_header");
   var gamesFilterTable = $("#games").DataTable();
-  (platform = null), (publisher = null), (genre = null);
+  gamesFilterTable.search("").columns().search("").draw();
+  (platforms = []), (publishers = []), (genres = []);
   $("input[type=checkbox]:checked").each(function () {
     var value = $(this).attr("id");
     if (value.includes("publisher")) {
-      publisher = value.split("-")[1];
+      publishers.push(value.split("-")[1]);
     } else if (value.includes("platform")) {
-      platform = value.split("-")[1];
+      platforms.push(value.split("-")[1]);
     } else {
-      genre = value.split("-")[1];
+      genres.push(value.split("-")[1]);
     }
   });
-  if (tableHeader && (platform || publisher || genre)) {
+  if (
+    tableHeader &&
+    (platforms.length > 0 || publishers.length > 0 || genres.length > 0)
+  ) {
     tableHeader.innerHTML = "Filter results";
-    if (publisher) gamesFilterTable.column(2).search(publisher).draw();
-    if (platform) gamesFilterTable.column(3).search(platform).draw();
-    if (genre) gamesFilterTable.column(4).search(genre).draw();
+    if (publishers.length > 0)
+      gamesFilterTable
+        .column(2)
+        .search(publishers.join("|"), true, false)
+        .draw();
+    if (platforms.length > 0)
+      gamesFilterTable
+        .column(3)
+        .search(platforms.join("|"), true, false)
+        .draw();
+    if (genres.length > 0)
+      gamesFilterTable.column(4).search(genres.join("|"), true, false).draw();
   } else if (tableHeader) {
-    tableHeader.innerHTML = "Top 400 games by global sales ranking";
-    gamesFilterTable.search("").columns().search("").draw();
+    tableHeader.innerHTML = "Top 500 games by global sales ranking";
   }
 }
