@@ -14,6 +14,7 @@ api = flask.Blueprint('api', __name__)
 
 @api.route('/games/')
 def get_games():
+    ''' Returns a JSON list of games dictionaries each of which represents the games with the specified criteria, if any.'''
     platform = request.args.get('platform')
     genre = request.args.get('genre')
     publisher = request.args.get('publisher')
@@ -43,23 +44,24 @@ def get_games():
         print(e)
         exit()
 
-    game_list = []
+    games_dictionary = []
     for row in cursor:
         if row[9] is not None:
             user_score = float(row[9])
         else:
             user_score = None 
-        game_list.append({ 'name':row[0], 'sales':float(row[1]),
+        games_dictionary.append({ 'name':row[0], 'sales':float(row[1]),
                 'publisher':row[2], 'platform':row[3], 
                 'genre':row[4], 'year':row[5], 'na':float(row[6]), 
                 'eu':float(row[7]), 'jp':float(row[8]), 'user_score':user_score, 
                 'critic_score':row[10] 
         })
 
-    return json.dumps(game_list)
+    return json.dumps(games_dictionary)
 
 @api.route('/platforms/') 
 def get_platforms():
+    ''' Returns an alphabetized JSON list of strings, each of which is a platform. '''
     query = '''SELECT DISTINCT platform
                 FROM platforms
                 ORDER BY platform'''
@@ -78,6 +80,7 @@ def get_platforms():
 
 @api.route('/genres/') 
 def get_genres():
+    ''' Returns an alphabetized JSON list of strings, each of which is a genre. '''
     query = '''SELECT DISTINCT genre
                 FROM genres
                 WHERE genre IS NOT NULL
@@ -89,14 +92,15 @@ def get_genres():
         print(e)
         exit()
 
-    genre_list = []
+    genres_list = []
     for genre in cursor:
-        genre_list.append(genre[0])
+        genres_list.append(genre[0])
 
-    return json.dumps(genre_list)
+    return json.dumps(genres_list)
 
 @api.route('/publishers/') 
 def get_publishers():
+    ''' Returns an alphabetized JSON list of strings, each of which is a publisher. '''
     query = '''SELECT DISTINCT publisher
                 FROM publishers
                 WHERE publisher IS NOT NULL
@@ -108,14 +112,15 @@ def get_publishers():
         print(e)
         exit()
 
-    publisher_list = []
+    publishers_list = []
     for publisher in cursor:
-        publisher_list.append(publisher[0])
+        publishers_list.append(publisher[0])
 
-    return json.dumps(publisher_list)
+    return json.dumps(publishers_list)
 
 @api.route('/categories/') 
 def get_categories():
+    ''' Returns a categories JSON dictionary, representing the top 5 platforms, genres, and publishers '''
     categories = {
         'platforms': ['Wii', 'PS2', 'GB', 'DS', 'X360'],
         'genres': ['Action', 'Sports', 'Shooter', 'Role-Playing', 'Platform'],
@@ -125,6 +130,7 @@ def get_categories():
 
 @api.route('/help/') 
 def get_help():
+    ''' Returns the api documentation '''
     content = ''
     with open('doc/api-design.txt', 'r') as f:
         line = f.readline()
@@ -134,6 +140,7 @@ def get_help():
     return content
 
 def connect_database():
+    ''' Connects to the webapp database '''
     try:
         connection = psycopg2.connect(database=database, user=user, password=password)
         cursor = connection.cursor()

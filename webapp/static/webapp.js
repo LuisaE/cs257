@@ -35,9 +35,15 @@ function initializeDataTables() {
   var gamesTable = $("#games").DataTable({
     order: [[1, "desc"]],
   });
-  var platformsTable = $("#platforms").DataTable();
-  var publishersTable = $("#publishers").DataTable();
-  var genresTable = $("#genres").DataTable();
+  var platformsTable = $("#platforms").DataTable({
+    info: false,
+  });
+  var publishersTable = $("#publishers").DataTable({
+    info: false,
+  });
+  var genresTable = $("#genres").DataTable({
+    info: false,
+  });
   return [gamesTable, platformsTable, publishersTable, genresTable];
 }
 
@@ -455,7 +461,9 @@ function setGamesFilters() {
 function filterGames() {
   var tableHeader = document.getElementById("table_header");
   var gamesFilterTable = $("#games").DataTable();
+
   gamesFilterTable.search("").columns().search("").draw();
+
   (platforms = []), (publishers = []), (genres = []);
   $("input[type=checkbox]:checked").each(function () {
     var value = $(this).attr("id");
@@ -467,6 +475,7 @@ function filterGames() {
       genres.push(value.split("-")[1]);
     }
   });
+
   if (
     tableHeader &&
     (platforms.length > 0 || publishers.length > 0 || genres.length > 0)

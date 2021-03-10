@@ -1,15 +1,15 @@
 # Claire Williams and Luisa Escosteguy
 
 REQUEST: /platforms
-RESPONSE: an alphabetized JSON list of strings, each of which is an platform.
+RESPONSE: an alphabetized JSON list of strings, each of which is a platform.
 EXAMPLE: ["2600", "3DO", "3DS", ... ]
 
 REQUEST: /publishers
-RESPONSE: an alphabetized JSON list of strings, each of which is an publisher.
+RESPONSE: an alphabetized JSON list of strings, each of which is a publisher.
 EXAMPLE: ["10TACLE Studios", "1C Company", "20th Century Fox Video Games", ... ]
 
 REQUEST: /genres
-RESPONSE: an alphabetized JSON list of strings, each of which is an genre.
+RESPONSE: an alphabetized JSON list of strings, each of which is a genre.
 EXAMPLE: ["Action", "Adventure", "Fighting", ... ]
 
 REQUEST: /categories
