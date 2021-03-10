@@ -250,6 +250,10 @@ function genreInsights(genre) {
         }
         var topGamesByGenreUserScore = `<h4>Top 5 ${genre} games by user score</h4>`;
         for (var k = 0; k < 5; k++) {
+          if(top_genre_games_by_user_score[k]["user_score"] == null){ 
+            topGamesByGenreUserScore += `<p>Sorry, this genre does not have enough user score data, try another one!</p>`
+            break;
+          }
           topGamesByGenreUserScore += `<h4 class="small font-weight-bold">${
             top_genre_games_by_user_score[k]["name"]
           } <span
@@ -334,6 +338,10 @@ function platformInsights(platform) {
         }
         var topGamesByPlatformUserScore = `<h4>Top 5 ${platform} games by user score</h4>`;
         for (var k = 0; k < 5; k++) {
+          if(top_platform_games_by_user_score[k]['user_score'] == null){
+            topGamesByPlatformUserScore += `<p>Sorry, this platform does not have enough user score data, try another one!</p>`
+            break;
+          }
           topGamesByPlatformUserScore += `<h4 class="small font-weight-bold">${
             top_platform_games_by_user_score[k]["name"]
           } <span
@@ -423,6 +431,10 @@ function publisherInsights(publisher) {
         }
         var topGamesByPublisherUserScore = `<h4>Top 5 ${publisher} games by user score</h4>`;
         for (var k = 0; k < 5; k++) {
+          if(top_publisher_games_by_user_score[k]["user_score"] == null){
+            topGamesByPublisherUserScore += `<p>Sorry, this publisher does not have enough user score data, try another one!</p>`
+            break;
+          }
           topGamesByPublisherUserScore += `<h4 class="small font-weight-bold">${
             top_publisher_games_by_user_score[k]["name"]
           } <span
