@@ -2,6 +2,9 @@
 
 window.onload = initialize;
 
+/**
+ * Initializes all the data and runs when the window loads.
+ */
 function initialize() {
   [
     gamesTable,
@@ -17,6 +20,9 @@ function initialize() {
   openInsights();
 }
 
+/**
+ * Opens the correct insights page based on the url. 
+ */
 function openInsights() {
   url = window.location.search;
   if (url.includes("platform")) {
@@ -31,6 +37,10 @@ function openInsights() {
   }
 }
 
+/**
+ * Initializes the data tables. 
+ * Returns a list of the data tables. 
+ */
 function initializeDataTables() {
   var gamesTable = $("#games").DataTable({
     order: [[1, "desc"]],
@@ -47,6 +57,10 @@ function initializeDataTables() {
   return [gamesTable, platformsTable, publishersTable, genresTable];
 }
 
+/**
+ * Gets the API Base URL. 
+ * Returns a string of the API Base URL.
+ */
 function getAPIBaseURL() {
   var baseURL =
     window.location.protocol +
@@ -58,6 +72,10 @@ function getAPIBaseURL() {
   return baseURL;
 }
 
+/**
+ * Adds data from gamesTable to the table on the home page. Catches errors and logs them.   
+ * @param {*} gamesTable Games table that is initialized in initializeDataTables()
+ */
 function getGames(gamesTable) {
   var url = getAPIBaseURL() + "/games/";
 
@@ -97,6 +115,11 @@ function getGames(gamesTable) {
     });
 }
 
+/**
+ * Adds data from platformsTable to the list on the platforms page. 
+ * Makes each name a link to that platform's insights. Catches errors and logs them.   
+ * @param {*} platformsTable Platforms table that is initialized in initializeDataTables()
+ */
 function getPlatforms(platformsTable) {
   var url = getAPIBaseURL() + "/platforms/";
 
@@ -121,6 +144,11 @@ function getPlatforms(platformsTable) {
     });
 }
 
+/**
+ * Adds data from genresTable to the list on the genres page. 
+ * Makes each name a link to that genre's insights. Catches errors and logs them.   
+ * @param {*} genresTable Genres table that is initialized in initializeDataTables()
+ */
 function getGenres(genresTable) {
   var url = getAPIBaseURL() + "/genres/";
 
@@ -143,6 +171,11 @@ function getGenres(genresTable) {
     });
 }
 
+/**
+ * Adds data from publishersTable to the list on the publishers page. 
+ * Makes each name a link to that publisher's insights. Catches errors and logs them.   
+ * @param {*} publishersTable Publishers table that is initialized in initializeDataTables()
+ */
 function getPublishers(publishersTable) {
   var url = getAPIBaseURL() + "/publishers/";
 
@@ -167,6 +200,12 @@ function getPublishers(publishersTable) {
     });
 }
 
+/**
+ * Creates genre insights by making a call to the API and using the top results.
+ * Creates html to display insights and adds it to the div.
+ * Does this twice for sales and user score. Catches errors and logs them.   
+ * @param {*} genre Genre to display insights for.
+ */
 function genreInsights(genre) {
   var colors = [" bg-danger", " bg-warning", "", " bg-info", " bg-success"];
   var genreDiv = document.getElementById("genre_insight");
@@ -235,6 +274,12 @@ function genreInsights(genre) {
     });
 }
 
+/**
+ * Creates platform insights by making a call to the API and using the top results.
+ * Creates html to display insights and adds it to the div.
+ * Does this twice for sales and user score. Catches errors and logs them.   
+ * @param {*} platform Platform to display insights for.
+ */
 function platformInsights(platform) {
   var colors = [" bg-danger", " bg-warning", "", " bg-info", " bg-success"];
   var platformDiv = document.getElementById("platform_insight");
@@ -314,6 +359,12 @@ function platformInsights(platform) {
     });
 }
 
+/**
+ * Creates publisher insights by making a call to the API and using the top results.
+ * Creates html to display insights and adds it to the div.
+ * Does this twice for sales and user score. Catches errors and logs them.   
+ * @param {*} publisher Publisher to display insights for.
+ */
 function publisherInsights(publisher) {
   var colors = [" bg-danger", " bg-warning", "", " bg-info", " bg-success"];
   var publisherDiv = document.getElementById("publisher_insight");
@@ -406,6 +457,9 @@ function publisherInsights(publisher) {
     });
 }
 
+/**
+ * Adds filters to the homepage based on the top values in each catagory. Catches errors and logs them.    
+ */
 function setGamesFilters() {
   var url = getAPIBaseURL() + "/categories/";
 
@@ -458,6 +512,10 @@ function setGamesFilters() {
     });
 }
 
+/**
+ * Filters results based on user specification and updates the data table on the home page.
+ * Reverts to full table when nothing is selected.    
+ */
 function filterGames() {
   var tableHeader = document.getElementById("table_header");
   var gamesFilterTable = $("#games").DataTable();
