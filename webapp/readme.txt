@@ -8,7 +8,7 @@ DATA: The Kaggle dataset Video Games Sales with Ratings contains a list
 The dataset is available to the public at https://www.kaggle.com/rush4ratio/video-game-sales-with-ratings 
     (Video_Games_Sales_as_at_22_Dec_2016.csv)
 
-FEATURES CURRENTLY WORKING:
+STATUS: Everything works.
 - List all the games
 - List all the publishers
 - List all the genres
@@ -17,5 +17,5 @@ FEATURES CURRENTLY WORKING:
 - Search publishers using DataTable search
 - Search genres using DataTable search
 - Search platforms using DataTable search
-- When click on a platform/genre/publisher in the platform/genre/publisher pages, the insights card changes the content
+- When click on a platform/genre/publisher in the platform/genre/publisher pages, the insights card shows up
 - Homepage filters works
